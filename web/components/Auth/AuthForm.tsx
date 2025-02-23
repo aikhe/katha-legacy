@@ -1,6 +1,6 @@
 "use client";
 
-import { FC, useState } from "react";
+import { FC, useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -57,7 +57,7 @@ const AuthForm: FC<AuthFormProp> = ({ authType }) => {
     },
   });
 
-  const { error, isPending, handleAuth } = useAuth(authType);
+  const { error, isPending, handleAuth, success } = useAuth(authType);
 
   const handleEmailInput = useValidateEmail(form);
 
@@ -77,13 +77,17 @@ const AuthForm: FC<AuthFormProp> = ({ authType }) => {
 
   const onSubmit = (data: z.infer<typeof FormSchema>) => {
     handleAuth(data.email, form.getValues("password"));
-
-    if (authType === "signup") {
-      setIsVerifying(!isVerifying);
-    }
   };
 
-  if (isVerifying && !isPending && !error) {
+  useEffect(() => {
+    if (authType === "signup" && success && !isPending && !error)  {
+      setIsVerifying(!isVerifying);
+    }
+
+    console.log("on authform:", success)
+  }, [success])
+
+  if (isVerifying) {
     return <OtpForm />;
   }
 

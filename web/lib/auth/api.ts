@@ -25,6 +25,7 @@ export const authApi = async (
     const responseData = await response.json();
 
     if (!response.ok) {
+      // console.log("on api:", prevState.success)
       return { error: responseData.error, success: prevState?.success };
     }
 

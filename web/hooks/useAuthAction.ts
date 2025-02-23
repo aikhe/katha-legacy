@@ -33,7 +33,7 @@ const useAuthAction = ({ action, onSuccess }: AuthActions) => {
     });
   };
 
-  return { error, isPending, handleAuth };
+  return { error, isPending, handleAuth, success: state.success };
 };
 
 export default useAuthAction;

@@ -42,6 +42,7 @@ export interface AuthContextType {
   error?: string;
   isPending: boolean;
   handleAuth: AuthHandlerAction;
+  success: boolean;
 }
 
 // authProvider & useAuth

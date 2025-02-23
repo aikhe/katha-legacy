@@ -9,10 +9,10 @@ import { AuthContextType, AuthType } from "@/types/auth";
 import { OtpReturnType, OtpVerifyAction } from "@/types/otp";
 
 export const useAuth = (authType: AuthType): AuthContextType => {
-  const { error, isPending, handleAuth } =
+  const { error, isPending, handleAuth, success } =
     authType === "login" ? useContext(loginContext) : useContext(signupContext);
 
-  return { error, isPending, handleAuth };
+  return { error, isPending, handleAuth, success };
 };
 
 export const useVerifyOtp = (): OtpReturnType => {

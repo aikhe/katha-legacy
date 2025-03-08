@@ -1,5 +1,6 @@
 import { FC } from "react";
 import { notFound } from "next/navigation";
+import { normalize } from "node:path";
 
 import { DYNAMIC_ROUTES } from "@/next.dynamic.constants.mjs";
 import { dynamicRouter } from "@/next.dynamic.mjs";
@@ -14,11 +15,14 @@ type DynamicParams = { params: Promise<DynamicStaticPaths> };
 const getTSXComponent = async (pathname = "") => {
   const componentPath = `@/_pages/${pathname}`;
 
+  const layout = pathname.substring(0, pathname.lastIndexOf("/"));
+
   console.log(componentPath);
+  console.log(layout);
 
   const module = await import(componentPath);
 
-  return { Component: module.default, layout: "" };
+  return { Component: module.default, layout };
 };
 
 const getPageFile = async (pathname: string) => {
@@ -27,7 +31,7 @@ const getPageFile = async (pathname: string) => {
   if (Component) {
     return {
       isStatic: false,
-      layout: "auth" as Layouts,
+      layout: layout as Layouts,
       Component,
     };
   }

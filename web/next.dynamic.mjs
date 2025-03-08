@@ -26,10 +26,7 @@ const getDynamicRouter = async () => {
   const getPageFile = async (pathname = "") => {
     const { Component, layout } = await _getPageFile(pathname);
 
-    return {
-      layout,
-      Component,
-    };
+    return { Component, layout };
   };
 
   return {

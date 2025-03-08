@@ -35,19 +35,22 @@ export async function updateSession(request: NextRequest) {
 
   // IMPORTANT: DO NOT REMOVE auth.getUser()
 
-  const protectedPaths = ["/user"];
-  const authPaths = ["/sign-up", "login", "/verify-otp"];
-  const rootPath = ["/"];
+  const protectedPaths = ["/dashboard/profile"];
+  const authPaths = ["/auth/sign-up", "/auth/login"];
 
   const user = await supabase.auth.getUser();
   const url = new URL(request.url);
   const next = url.searchParams.get("next");
 
-  if (rootPath.includes(url.pathname)) {
+  if (url.pathname === "/") {
     if (user.data.user?.id) {
       return NextResponse.redirect(new URL("/dashboard", request.url));
     }
     return NextResponse.redirect(new URL("/home", request.url));
+  }
+
+  if (url.pathname === "/auth") {
+    return NextResponse.redirect(new URL("/auth/sign-up", request.url));
   }
 
   if (user.data.user?.id) {
@@ -57,7 +60,7 @@ export async function updateSession(request: NextRequest) {
   } else {
     if (protectedPaths.includes(url.pathname)) {
       return NextResponse.redirect(
-        new URL("/sign-up?next=" + (next || url.pathname), request.url),
+        new URL("/auth/sign-up?next=" + (next || url.pathname), request.url),
       );
     }
   }

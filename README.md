@@ -136,8 +136,9 @@ A vault system to keep me from **completely losing my mind**. This is a simple a
     - [x] Default route as home + middleware checks
     - [x] notFound() page handler (not-found.tsx)
     - [x] Route config
+    - [x] Auth route/layout pages (login & signup)
+    - [x] Page parsing
     - [ ] Error page (error.tsx)
-    - [ ] Auth route/layout pages (login & signup)
 
   - Misc
     - [x] Make use of useReducer

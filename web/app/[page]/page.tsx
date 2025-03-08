@@ -1,43 +1,32 @@
 import { FC } from "react";
+import { notFound } from "next/navigation";
 
+import { DYNAMIC_ROUTES } from "@/next.dynamic.constants.mjs";
 import { dynamicRouter } from "@/next.dynamic.mjs";
 
 import WithLayout from "@/components/withLayout";
 
 import { Layouts } from "@/types/layouts";
-import { notFound } from "next/navigation";
 
 type DynamicStaticPaths = { path: Array<string>; page: string };
 type DynamicParams = { params: Promise<DynamicStaticPaths> };
 
-const pages = ["home", "auth", "profile", "dashboard"];
-const dashboardPaths = ["main", "analytics", "setting", "profile"];
-const authPaths = ["signup", "login"];
-const categories = ["category1", "category2", "category3"];
-
-const Home: FC<DynamicParams> = async (params) => {
-  const { path = [], page } = await params.params;
+const getPage: FC<DynamicParams> = async (props) => {
+  const { path = [], page } = await props.params;
 
   const pathname = dynamicRouter.getPathname(path);
+  const fullPath = path.length > 0 ? `${page}/${pathname}` : page;
 
-  console.log(page);
-  console.log(pathname);
+  const layout = DYNAMIC_ROUTES.get(fullPath);
 
-  if (pages.includes(page)) {
-    if (pathname && !dashboardPaths.includes(pathname)) {
-      return notFound();
-    }
-
-    if (page !== "dashboard" && dashboardPaths.includes(pathname)) {
-      return notFound();
-    } else if (page === "dashboard" && dashboardPaths.includes(pathname)) {
-      return <WithLayout layout={pathname as Layouts}></WithLayout>;
-    }
-
-    return <WithLayout layout={page as Layouts}></WithLayout>;
+  if (layout) {
+    return <WithLayout layout={layout as Layouts} />;
   }
 
   return notFound();
 };
 
-export default Home;
+export const dynamic = "force-static";
+export const revalidate = 300;
+
+export default getPage;

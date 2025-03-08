@@ -5,13 +5,11 @@ export const DYNAMIC_ROUTES = new Map([
   ["dashboard", "dashboard"],
 
   // auth paths
-  ["auth/signup", "auth"],
-  ["auth/login", "auth"],
+  // ["auth/signup", "auth"],
+  // ["auth/login", "auth"],
 
   // dashboard paths
-  ["dashboard/main", "dashboard"],
-  ["dashboard/analytics", "analytics"],
-  ["dashboard/setting", "settings"],
+  ["dashboard/main", "main"],
   ["dashboard/profile", "profile"],
 
   // dashboard main path

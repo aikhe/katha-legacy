@@ -134,7 +134,10 @@ A vault system to keep me from **completely losing my mind**. This is a simple a
   - [ ] Routing
     - [x] Dynamic routing
     - [x] Default route as home + middleware checks
-    - [ ] notFound() page handler (not-found.tsx)
+    - [x] notFound() page handler (not-found.tsx)
+    - [x] Route config
+    - [ ] Error page (error.tsx)
+    - [ ] Auth route/layout pages (login & signup)
 
   - Misc
     - [x] Make use of useReducer

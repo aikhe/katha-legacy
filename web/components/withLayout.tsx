@@ -1,8 +1,9 @@
 import type { FC, PropsWithChildren } from "react";
 
 import { Layouts } from "@/types/layouts";
-import HomeLayout from "@/layouts/Home";
 import DefaultLayout from "@/layouts/Default";
+import HomeLayout from "@/layouts/Home";
+import AuthLayout from "@/layouts/Auth";
 import DashboardLayout from "@/layouts/Dashboard";
 import MainLayout from "@/layouts/Main";
 import ProfileLayout from "@/layouts/ProfileLayout";
@@ -10,7 +11,7 @@ import CategoriesLayout from "@/layouts/Categories";
 
 const layouts: Record<Layouts, FC<PropsWithChildren<{}>>> = {
   home: HomeLayout,
-  auth: DefaultLayout,
+  auth: AuthLayout,
   dashboard: DashboardLayout,
   main: MainLayout,
   profile: ProfileLayout,

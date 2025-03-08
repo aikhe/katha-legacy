@@ -13,4 +13,6 @@ export const DYNAMIC_ROUTES = new Map([
 
   // dashboard main path
   // ["dashboard/main/categories", "categories"],
+
+  ["random", "random"],
 ]);

@@ -17,7 +17,7 @@ const getPage: FC<DynamicParams> = async (props) => {
   const pathname = dynamicRouter.getPathname(path);
   const fullPath = path.length > 0 ? `${page}/${pathname}` : page;
 
-  // console.log(fullPath);
+  console.log(fullPath);
 
   const staticGeneratedLayout = DYNAMIC_ROUTES.get(fullPath);
 

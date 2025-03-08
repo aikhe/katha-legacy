@@ -1,6 +1,6 @@
 import UserProfile from "@/components/User/UserProfile";
 
-const ProfileLayout = () => {
+const ProfilePage = () => {
   return (
     <main>
       <UserProfile />
@@ -8,4 +8,4 @@ const ProfileLayout = () => {
   );
 };
 
-export default ProfileLayout;
+export default ProfilePage;

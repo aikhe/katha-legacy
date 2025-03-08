@@ -138,6 +138,7 @@ A vault system to keep me from **completely losing my mind**. This is a simple a
     - [x] Route config
     - [x] Auth route/layout pages (login & signup)
     - [x] Page parsing
+    - [x] Protected routes (dashboard)
     - [ ] Error page (error.tsx)
 
   - Misc

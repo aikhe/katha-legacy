@@ -13,7 +13,7 @@ const SignOut = () => {
   const signOut = () => {
     startSignOut(async () => {
       await supabase.auth.signOut();
-      redirect("/sign-up");
+      redirect("/auth/sign-up");
     });
   };
 

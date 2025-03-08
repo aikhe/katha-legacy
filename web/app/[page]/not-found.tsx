@@ -27,7 +27,7 @@ export default function RandomLayout() {
           </p>
           <Link
             className={`${buttonVariants({ variant: "default", size: "sm" })} max-w-fit`}
-            href={"/sign-up"}
+            href={"/auth/sign-up"}
           >
             Get Started <ArrowRight className="" />
           </Link>

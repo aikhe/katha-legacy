@@ -1,6 +1,5 @@
 export const DYNAMIC_ROUTES = new Map([
   // pages
-  ["home", "home"],
   ["auth", "auth"],
   ["dashboard", "dashboard"],
 
@@ -9,9 +8,9 @@ export const DYNAMIC_ROUTES = new Map([
   // ["auth/login", "auth"],
 
   // dashboard paths
-  ["dashboard/main", "main"],
-  ["dashboard/profile", "profile"],
+  // ["dashboard/main", "main"],
+  // ["dashboard/profile", "profile"],
 
   // dashboard main path
-  ["dashboard/main/categories", "categories"],
+  // ["dashboard/main/categories", "categories"],
 ]);

@@ -1,1 +1,7 @@
-export type Layouts = "home" | "page" | "login" | "signup";
+export type Layouts =
+  | "home"
+  | "auth"
+  | "dashboard"
+  | "main"
+  | "profile"
+  | "categories";

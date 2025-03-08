@@ -36,7 +36,7 @@ export async function updateSession(request: NextRequest) {
   // IMPORTANT: DO NOT REMOVE auth.getUser()
 
   const protectedPaths = ["/user"];
-  const authPaths = ["/sign-up", "/verify-otp"];
+  const authPaths = ["/sign-up", "login", "/verify-otp"];
   const rootPath = ["/"];
 
   const user = await supabase.auth.getUser();
@@ -45,14 +45,14 @@ export async function updateSession(request: NextRequest) {
 
   if (rootPath.includes(url.pathname)) {
     if (user.data.user?.id) {
-      return NextResponse.redirect(new URL("/user", request.url));
+      return NextResponse.redirect(new URL("/dashboard", request.url));
     }
     return NextResponse.redirect(new URL("/home", request.url));
   }
 
   if (user.data.user?.id) {
     if (authPaths.includes(url.pathname)) {
-      return NextResponse.redirect(new URL("/user", request.url));
+      return NextResponse.redirect(new URL("/dashboard", request.url));
     }
   } else {
     if (protectedPaths.includes(url.pathname)) {

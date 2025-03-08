@@ -2,8 +2,6 @@
 
 A vault system to keep me from **completely losing my mind**. This is a simple and neat inventory management system where I can store everything that matters, *so I can stay present and not spiral into insanity*. "Katha" means **"created by the mind"**, which means it's up to me to turn thoughts into reality… or at least attempt to.
 
----
-
 ### Tech Stack:
 
 - Next.js
@@ -264,7 +262,7 @@ A vault system to keep me from **completely losing my mind**. This is a simple a
 - MISCS
 
   - [x] Neovim/neovide
-  - [ ] Pnpm (faster npm)
+  - [x] Pnpm (faster npm)
   - [ ] Powershell auto-suggestion
 
 - TO KEEP IN MIND

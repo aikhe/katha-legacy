@@ -93,7 +93,9 @@ const AuthForm: FC<AuthFormProp> = ({ authType }) => {
           </button>
 
           {authType === "signup" ? (
-            <a href="/auth/login">Go to Login</a>
+            <a className=" font-helvetica" href="/auth/login">
+              Go to Login
+            </a>
           ) : (
             <p>
               Don't have an account? <a href="/auth/sign-up">Sign up</a>

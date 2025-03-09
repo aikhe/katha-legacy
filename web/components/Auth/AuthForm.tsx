@@ -92,7 +92,13 @@ const AuthForm: FC<AuthFormProp> = ({ authType }) => {
                 : "Sign up"}
           </button>
 
-          {authType === "signup" && <a href="/login">Go to Login</a>}
+          {authType === "signup" ? (
+            <a href="/auth/login">Go to Login</a>
+          ) : (
+            <p>
+              Don't have an account? <a href="/auth/sign-up">Sign up</a>
+            </p>
+          )}
         </form>
       )}
     </>

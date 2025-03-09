@@ -140,6 +140,8 @@ A vault system to keep me from **completely losing my mind**. This is a simple a
     - [x] Page parsing
     - [x] Protected routes (dashboard)
     - [ ] Error page (error.tsx)
+    - [ ] Refine middleware logic
+    - [ ] Metadata for each pages (MatterProvider)
 
   - Misc
     - [x] Make use of useReducer
@@ -236,7 +238,7 @@ A vault system to keep me from **completely losing my mind**. This is a simple a
   - [x] Providers
   - [x] Reducers
   - [x] Auth stucture
-  - [ ] Utils
+  - [x] Utils
   - [ ] @next-data (GET) CRUD stuffs
     - [ ] generators (POST)
       - [ ] \_\_tests__

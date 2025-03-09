@@ -48,7 +48,7 @@ const AuthProvider: FC<PropsWithChildren> = ({ children }) => {
 
   const loginAuth = useAuthAction({
     action: handleAuth("LOGIN"),
-    onSuccess: () => router.push("/"),
+    onSuccess: () => router.push("/dashboard/main"),
   });
 
   const signupAuth = useAuthAction({

@@ -60,7 +60,7 @@ export default {
         geistsans: "var(--font-geist-sans)",
         geistmono: "var(--font-geist-mono)",
         dmsans: "var(--font-dmsans)",
-        helvetica: ["HelveticaNeueRegular"],
+        helvetica: "var(--font-helveticaneue)",
       },
     },
   },

@@ -130,6 +130,7 @@ A vault system to keep me from **completely losing my mind**. This is a simple a
 
     - [ ] Google auth
     - [ ] Facebook auth
+    - [ ] Forgot password
 
   - [ ] Routing
     - [x] Dynamic routing

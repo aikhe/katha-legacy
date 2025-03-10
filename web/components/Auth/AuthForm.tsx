@@ -10,7 +10,6 @@ import { useAuth } from "@/hooks/useAuth";
 import OtpForm from "./OtpForm";
 import FormField from "./AuthFormField";
 import { AuthType } from "@/types/auth";
-import { Eye } from "lucide-react";
 
 const FormSchema = z
   .object({

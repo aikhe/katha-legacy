@@ -3,10 +3,11 @@ import type { Config } from "tailwindcss";
 export default {
   darkMode: ["class"],
   content: [
-    "./components/**/*.{js,ts,jsx,tsx,mdx}",
+    "./app/**/*.{js,ts,jsx,tsx,mdx}",
     "./layouts/**/*.{js,ts,jsx,tsx,mdx}",
     "./_pages/**/*.{js,ts,jsx,tsx,mdx}",
-    "./app/**/*.{js,ts,jsx,tsx,mdx}",
+    "./components/**/*.{js,ts,jsx,tsx,mdx}",
+    "./providers//**/*.{js,ts,jsx,tsx,mdx}",
   ],
   theme: {
     extend: {
@@ -62,6 +63,7 @@ export default {
         geistmono: "var(--font-geist-mono)",
         dmsans: "var(--font-dmsans)",
         helvetica: "var(--font-helveticaneue)",
+        "helvetica-heavy": ["HelveticaNeueHeavy", "sans-serif"],
       },
     },
   },

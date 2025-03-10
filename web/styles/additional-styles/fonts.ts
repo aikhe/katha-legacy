@@ -35,6 +35,11 @@ const helveticaNeue = localFont({
       style: "bold",
     },
     {
+      path: "../../public/fonts/helvetica-neue/HelveticaNeueHeavy.otf",
+      weight: "800",
+      style: "heavy",
+    },
+    {
       path: "../../public/fonts/helvetica-neue/HelveticaNeueItalic.ttf",
       weight: "400",
       style: "italic",

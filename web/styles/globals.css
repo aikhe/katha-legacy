@@ -6,7 +6,7 @@
 
 @layer base {
   :root {
-    --background: 0 0% 100%;
+    --background: 210, 25%, 97%;
 
     --foreground: 0 0% 3.9%;
 
@@ -115,9 +115,7 @@
     @apply bg-background text-foreground;
   }
 
-  @font-face {
-    font-family: "HelveticaNeueRegular";
-    src: url("/fonts/helvetica-neue/HelveticaNeueRoman.otf") format("opentype");
-    font-weight: 400;
+  .inspect {
+    @apply border-red-400 border-2;
   }
 }

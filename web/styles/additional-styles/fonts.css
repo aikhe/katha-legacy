@@ -22,3 +22,9 @@
   font-weight: 400;
   font-style: italic;
 }
+
+@font-face {
+  font-family: "HelveticaNeueHeavy";
+  src: url("/fonts/helvetica-neue/HelveticaNeueHeavy.otf") format("opentype");
+  font-weight: 800;
+}

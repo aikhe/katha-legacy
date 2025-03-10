@@ -252,6 +252,9 @@ A vault system to keep me from **completely losing my mind**. This is a simple a
 
 - FRONT-END UI/UX
 
+  - [x] Icon/logo
+  - [ ] Navbar
+    - [x] Initial
   - [ ] Landing
     - [x] Initial
     - [ ] 

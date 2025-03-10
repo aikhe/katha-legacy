@@ -2,7 +2,7 @@ import { FC, PropsWithChildren } from "react";
 
 const DashboardLayout: FC<PropsWithChildren> = ({ children }) => {
   return (
-    <>
+    <main>
       <h1>Dashboard Layout</h1>
       <ul>
         <li>
@@ -13,7 +13,7 @@ const DashboardLayout: FC<PropsWithChildren> = ({ children }) => {
         </li>
       </ul>
       {children}
-    </>
+    </main>
   );
 };
 

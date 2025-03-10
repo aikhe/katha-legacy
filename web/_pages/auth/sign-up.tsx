@@ -1,10 +1,11 @@
 import AuthForm from "@/components/Auth/AuthForm";
 
+import styles from "./auth.module.css";
+
 export default function SignInPage() {
   return (
-    <main className="flex flex-col w-full h-[100svh] items-center justify-center">
+    <section className={styles.authPage}>
       <AuthForm authType="signup" />
-
-    </main>
+    </section>
   );
 }

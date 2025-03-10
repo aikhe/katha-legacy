@@ -54,7 +54,7 @@ const AuthForm: FC<AuthFormProp> = ({ authType }) => {
       {isVerify && !isPending && !error ? (
         <OtpForm />
       ) : (
-        <form className="flex w-52 flex-col p-2">
+        <form className="flex flex-col">
           <label htmlFor="email">Email:</label>
           <FormField
             type="email"

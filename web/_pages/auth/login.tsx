@@ -1,10 +1,12 @@
 import AuthForm from "@/components/Auth/AuthForm";
 
+import styles from "./auth.module.css";
+
 const loginPage = () => {
   return (
-    <main>
+    <section className={styles.authPage}>
       <AuthForm authType="login" />
-    </main>
+    </section>
   );
 };
 

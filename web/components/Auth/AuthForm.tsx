@@ -10,12 +10,13 @@ import { useAuth } from "@/hooks/useAuth";
 import OtpForm from "./OtpForm";
 import FormField from "./AuthFormField";
 import { AuthType } from "@/types/auth";
+import { Eye } from "lucide-react";
 
 const FormSchema = z
   .object({
     email: z.string().email({ message: "Invalid Email Address" }),
-    password: z.string().min(6, { message: "Password is too short" }),
-    confirmPassword: z.string().min(6, { message: "Password is too short" }),
+    password: z.string().min(8, { message: "Password is too short" }),
+    confirmPassword: z.string().min(8, { message: "Password is too short" }),
   })
   .refine((data) => data.password === data.confirmPassword, {
     message: "Password does't match",
@@ -93,11 +94,9 @@ const AuthForm: FC<AuthFormProp> = ({ authType }) => {
           </button>
 
           {authType === "signup" ? (
-            <>
-              <a className="font-helvetica" href="/auth/login">
-                Go to Login
-              </a>
-            </>
+            <a className="font-helvetica tracking-wider" href="/auth/login">
+              Go to Login
+            </a>
           ) : (
             <p>
               Don't have an account? <a href="/auth/sign-up">Sign up</a>

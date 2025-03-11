@@ -1,16 +1,16 @@
 import { FC } from "react";
+import Link from "next/link";
 
 import Katha from "@/components/Icons/Logos/Katha";
-import Link from "next/link";
+
+import styles from "./index.module.css";
 
 const KathaLogo: FC = () => {
   return (
-    <Link href="/" className="flex w-fit items-center gap-[.25rem]">
+    <Link href="/" className={styles.logoContainer}>
       <Katha />
 
-      <span className="font-helvetica text-[#121212] tracking-[-2%] text-[18px] font-bold">
-        Katha
-      </span>
+      <span className={styles.kathaText}>Katha</span>
     </Link>
   );
 };

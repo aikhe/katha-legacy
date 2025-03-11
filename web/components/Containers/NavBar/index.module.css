@@ -1,0 +1,16 @@
+.container {
+  @apply h-[60px] 
+	w-full 
+	z-50 
+	border-b-2 
+	bg-card 
+	fixed;
+}
+
+.kathaIcon {
+  @apply mx-16 
+	px-6
+	h-full 
+	flex 
+	items-center;
+}

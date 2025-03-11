@@ -1,11 +1,13 @@
-import WithKathaLogo from "@/components/withKathaLogo";
-import Link from "next/link";
 import type { FC } from "react";
+
+import WithKathaLogo from "@/components/withKathaLogo";
+
+import styles from "./index.module.css";
 
 const NavBar: FC = () => {
   return (
-    <nav className="h-[60px] w-full z-50 border-b-2 bg-card fixed">
-      <div className="mx-16 px-6 h-full flex items-center">
+    <nav className={styles.container}>
+      <div className={styles.kathaIcon}>
         <WithKathaLogo />
       </div>
     </nav>

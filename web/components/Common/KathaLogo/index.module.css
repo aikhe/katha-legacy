@@ -1,0 +1,14 @@
+.logoContainer {
+  @apply flex 
+	w-fit 
+	items-center 
+	gap-[.25rem];
+}
+
+.kathaText {
+  @apply font-helvetica 
+	text-[#121212] 
+	tracking-[-2%] 
+	text-[18px] 
+	font-bold;
+}

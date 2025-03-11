@@ -174,7 +174,7 @@ A vault system to keep me from **completely losing my mind**. This is a simple a
       - [ ] Storybook Configuration is done within `apps/site/.storybook`
         - We use an almost out-of-the-box Storybook Experience with a few extra customisations
 
-    - [ ] Components
+    - [x] Components
       - [x] Creating components
         - Structure template
           ```text
@@ -194,7 +194,7 @@ A vault system to keep me from **completely losing my mind**. This is a simple a
           ```
         - always export components as default
         - Avoid making a component too big. Deconstruct it into smaller Components/Hooks whenever possible.
-      - [ ] Styling
+      - [x] Styling
         - PostCSS + Tailwind
         - CSS classes should be camelCase
         - Use Tailwind's `@apply` selector to apply Tailwind Tokens

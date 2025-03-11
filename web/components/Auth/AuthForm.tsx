@@ -8,7 +8,25 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useAuth } from "@/hooks/useAuth";
 
 import OtpForm from "./OtpForm";
-import FormField from "./AuthFormField";
+import InputField from "./AuthFormField";
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "@/components/ui/form";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import { Button } from "../ui/button";
+import { Input } from "../ui/input";
 import { AuthType } from "@/types/auth";
 
 const FormSchema = z
@@ -40,6 +58,15 @@ const AuthForm: FC<AuthFormProp> = ({ authType }) => {
     },
   });
 
+  const form = useForm<z.infer<typeof FormSchema>>({
+    resolver: zodResolver(FormSchema),
+    defaultValues: {
+      email: "",
+      password: "",
+      confirmPassword: "",
+    },
+  });
+
   const { error, isPending, handleAuth } = useAuth(authType);
 
   const onSubmit = (data: z.infer<typeof FormSchema>) => {
@@ -54,54 +81,79 @@ const AuthForm: FC<AuthFormProp> = ({ authType }) => {
       {isVerify && !isPending && !error ? (
         <OtpForm />
       ) : (
-        <form className="flex flex-col">
-          <label htmlFor="email">Email:</label>
-          <FormField
-            type="email"
-            name="email"
-            register={register}
-            error={errors.email}
-          />
-          <label htmlFor="password">Password:</label>
-          <FormField
-            type="password"
-            name="password"
-            register={register}
-            error={errors.password}
-          />
-          <label htmlFor="confirm-password">Confirm Password:</label>
-          <FormField
-            type="password"
-            name="confirmPassword"
-            register={register}
-            error={errors.confirmPassword}
-          />
+        <>
+          <Card>
+            <CardHeader>
+              <CardTitle>Card Title</CardTitle>
+              <CardDescription>Card Description</CardDescription>
+            </CardHeader>
 
-          {error && <p style={{ color: "red" }}>{error}</p>}
+            <CardContent>
+              <Form {...form}>
+                <form
+                  onSubmit={form.handleSubmit(onSubmit)}
+                  className="space-y-8"
+                >
+                  <FormField
+                    control={form.control}
+                    name="email"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>Email</FormLabel>
+                        <FormControl>
+                          <Input placeholder="example@email.com" {...field} />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                  <FormField
+                    control={form.control}
+                    name="password"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>Password</FormLabel>
+                        <FormControl>
+                          <Input placeholder="password1234" {...field} />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                  <FormField
+                    control={form.control}
+                    name="confirmPassword"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>Confirm Password</FormLabel>
+                        <FormControl>
+                          <Input placeholder="password1234" {...field} />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
 
-          <button
-            type="button"
-            onClick={handleSubmit((data) => onSubmit(data))}
-          >
-            {isPending
-              ? authType === "login"
-                ? "Logging in..."
-                : "Signing up..."
-              : authType === "login"
-                ? "Log in"
-                : "Sign up"}
-          </button>
+                  {error && <p style={{ color: "red" }}>{error}</p>}
 
-          {authType === "signup" ? (
-            <a className="font-helvetica tracking-wider" href="/auth/login">
-              Go to Login
-            </a>
-          ) : (
-            <p>
-              Don't have an account? <a href="/auth/sign-up">Sign up</a>
-            </p>
-          )}
-        </form>
+                  <Button type="submit">
+                    {isPending
+                      ? authType === "login"
+                        ? "Logging in..."
+                        : "Signing up..."
+                      : authType === "login"
+                        ? "Log in"
+                        : "Sign up"}
+                  </Button>
+                </form>
+              </Form>
+            </CardContent>
+
+            <CardFooter>
+              <p>Card Footer</p>
+            </CardFooter>
+          </Card>
+        </>
       )}
     </>
   );

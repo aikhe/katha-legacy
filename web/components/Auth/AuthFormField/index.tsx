@@ -15,7 +15,7 @@ interface FormFieldProps {
   error: FieldError | undefined;
 }
 
-const FormField: React.FC<FormFieldProps> = ({
+const InputField: React.FC<FormFieldProps> = ({
   type,
   name,
   register,
@@ -31,4 +31,4 @@ const FormField: React.FC<FormFieldProps> = ({
   </>
 );
 
-export default FormField;
+export default InputField;

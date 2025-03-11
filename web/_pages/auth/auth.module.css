@@ -1,5 +1,8 @@
 .authPage {
   @apply flex 
-	justify-center
-	mt-[1.875rem];
+    flex-col
+    justify-center
+    items-center
+    font-helvetica
+    mt-[1.875rem];
 }

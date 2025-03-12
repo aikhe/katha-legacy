@@ -28,6 +28,7 @@ import { Button } from "../ui/button";
 import { Input } from "../ui/input";
 import { AuthType } from "@/types/auth";
 import Email from "../Icons/AuthForm/Email";
+import Lock from "../Icons/AuthForm/Lock";
 
 const FormSchema = z
   .object({
@@ -69,11 +70,11 @@ const AuthForm: FC<AuthFormProp> = ({ authType }) => {
         <OtpForm />
       ) : (
         <Card className="w-[444px] rounded-none font-helvetica">
-          <CardHeader>
-            <CardTitle className="text-2xl tracking-[-2%] font-bold text-[#0C0D0E]">
+          <CardHeader className="pt-[26px] pb-0 gap-[3px] px-[30px]">
+            <CardTitle className="text-2xl leading-none tracking-[-2%] font-bold text-[#0C0D0E]">
               {authType === "login" ? "Log in" : "Sign up"}
             </CardTitle>
-            <CardDescription className="text-[14px] tracking-[2%] text-[#99A0AE]">
+            <CardDescription className="text-[14px] font-normal leading-none tracking-[2%] text-[#99A0AE]">
               {authType === "login" ? (
                 <p>Enter your details below to sign into your account.</p>
               ) : (
@@ -90,79 +91,94 @@ const AuthForm: FC<AuthFormProp> = ({ authType }) => {
             </CardDescription>
           </CardHeader>
 
-          <CardContent>
+          <CardContent className="px-[30px] pb-0">
             <Form {...form}>
-              <form
-                onSubmit={form.handleSubmit(onSubmit)}
-                className="space-y-8"
-              >
-                <FormField
-                  control={form.control}
-                  name="email"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel className="text-[14px] tracking-[2%] font-normal text-[#0C0D0E]">
-                        Email
-                      </FormLabel>
-                      <FormControl>
-                        <div className="relative">
-                          <Email className="absolute top-1/2 -translate-y-1/2 left-[12px]" />
-                          <Input
-                            className="rounded-none px-[12px] py-[6px] pl-[34px] text-[#0C0D0E] font-normal border-[#E1E4EA] tracking-[2%] focus-visible:ring-[#667085] focus-visible:ring-[1px] focus-visible:ring-offset-0 placeholder:text-[#99A0AE]"
-                            placeholder="example@email.com"
-                            {...field}
-                          />
-                        </div>
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-                <FormField
-                  control={form.control}
-                  name="password"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>Password</FormLabel>
-                      <FormControl>
-                        <Input placeholder="password1234" {...field} />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-                <FormField
-                  control={form.control}
-                  name="confirmPassword"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>Confirm Password</FormLabel>
-                      <FormControl>
-                        <Input placeholder="password1234" {...field} />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
+              <form onSubmit={form.handleSubmit(onSubmit)}>
+                <div className="space-y-[10px] py-[26px]">
+                  <FormField
+                    control={form.control}
+                    name="email"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel className="text-[14px] tracking-[2%] font-normal text-[#0C0D0E]">
+                          Email
+                        </FormLabel>
+                        <FormControl className="mt-[6px]">
+                          <div className="relative">
+                            <Email className="absolute z-10 top-1/2 -translate-y-1/2 left-[12px]" />
+                            <Input
+                              className="text-[14px] rounded-none px-[12px] py-[6px] pl-[34px] text-[#0C0D0E] font-normal border-[#E1E4EA] tracking-[2%] focus-visible:ring-[#667085] focus-visible:ring-[1px] focus-visible:ring-offset-0 placeholder:text-[#99A0AE] drop-shadow-[0_1px_3px_rgba(143,143,143,0.20)]"
+                              {...field}
+                            />
+                          </div>
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                  <FormField
+                    control={form.control}
+                    name="password"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel className="text-[14px] tracking-[2%] font-normal text-[#0C0D0E]">
+                          Password
+                        </FormLabel>
+                        <FormControl className="mt-[6px]">
+                          <div className="relative">
+                            <Lock className="absolute z-10 top-1/2 -translate-y-1/2 left-[12px]" />
+                            <Input
+                              className="text-[14px] rounded-none px-[12px] py-[6px] pl-[34px] text-[#0C0D0E] font-normal border-[#E1E4EA] tracking-[2%] focus-visible:ring-[#667085] focus-visible:ring-[1px] focus-visible:ring-offset-0 placeholder:text-[#99A0AE] drop-shadow-[0_1px_3px_rgba(143,143,143,0.20)]"
+                              {...field}
+                            />
+                          </div>
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                  <FormField
+                    control={form.control}
+                    name="confirmPassword"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel className="text-[14px] tracking-[2%] font-normal text-[#0C0D0E]">
+                          Confirm Password
+                        </FormLabel>
+                        <FormControl className="mt-[6px]">
+                          <div className="relative">
+                            <Lock className="absolute z-10 top-1/2 -translate-y-1/2 left-[12px]" />
+                            <Input
+                              className="text-[14px] rounded-none px-[12px] py-[6px] pl-[34px] text-[#0C0D0E] font-normal border-[#E1E4EA] tracking-[2%] focus-visible:ring-[#667085] focus-visible:ring-[1px] focus-visible:ring-offset-0 placeholder:text-[#99A0AE] drop-shadow-[0_1px_3px_rgba(143,143,143,0.20)]"
+                              {...field}
+                            />
+                          </div>
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
 
-                {error && <p style={{ color: "red" }}>{error}</p>}
+                  {error && <p style={{ color: "red" }}>{error}</p>}
+                </div>
 
-                <Button type="submit">
+                <Button
+                  className="rounded-none font-normal text-[14px] tracking-[2%] bg-[#0C0D0E] w-full"
+                  type="submit"
+                >
                   {isPending
                     ? authType === "login"
                       ? "Logging in..."
                       : "Signing up..."
                     : authType === "login"
                       ? "Log in"
-                      : "Sign up"}
+                      : "Create account"}
                 </Button>
               </form>
             </Form>
           </CardContent>
 
-          <CardFooter>
-            <p>Card Footer</p>
-          </CardFooter>
+          <CardFooter></CardFooter>
         </Card>
       )}
     </>

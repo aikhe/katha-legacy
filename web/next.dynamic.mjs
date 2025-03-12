@@ -13,7 +13,7 @@ const getDynamicRouter = async () => {
     console.log(pathname);
 
     try {
-      const module = await import(componentPath);
+      const module = await import(`${componentPath}`);
 
       console.log(module.default);
 

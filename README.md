@@ -6,6 +6,10 @@ A vault system to keep me from **completely losing my mind**. This is a simple a
 
 - Next.js
 - Supabase
+- React
+- Typescript
+- Tailwind
+- Shadcn
 
 
 #### To-:

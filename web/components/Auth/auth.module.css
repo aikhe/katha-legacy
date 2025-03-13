@@ -1,0 +1,78 @@
+.card {
+  @apply w-[444px]
+	rounded-none
+	font-helvetica;
+}
+
+.cardHeader {
+  @apply pt-[26px]
+	pb-0 
+	gap-[3px] 
+	px-[30px];
+}
+
+.cardTitle {
+  @apply text-2xl 
+	leading-none 
+	tracking-[-2%] 
+	font-bold 
+	text-[#0C0D0E];
+}
+
+.cardDescription {
+  @apply text-[14px]
+	font-normal
+	leading-none
+	tracking-[2%]
+	text-[#99A0AE];
+}
+
+.cardContent {
+  @apply px-[30px]
+	pb-0;
+}
+
+.formFieldContainer {
+  @apply space-y-[10px]
+	py-[26px];
+}
+
+.formLabel {
+  @apply text-[14px]
+	tracking-[2%]
+	font-normal
+	text-[#0C0D0E];
+}
+
+.formControl {
+  @apply mt-[6px];
+}
+
+.inputContainer {
+  @apply relative;
+}
+
+.inputIcon {
+  @apply absolute
+	z-10
+	top-1/2
+	-translate-y-1/2
+	left-[12px];
+}
+
+.inputField {
+  @apply text-[14px]
+	rounded-none
+	px-[12px]
+	py-[6px]
+	pl-[34px]
+	text-[#0C0D0E]
+	font-normal
+	border-[#E1E4EA]
+	tracking-[2%]
+	focus-visible:ring-[#667085]
+	focus-visible:ring-[1px]
+	focus-visible:ring-offset-0
+	placeholder:text-[#99A0AE]
+	drop-shadow-[0_1px_3px_rgba(143,143,143,0.20)];
+}

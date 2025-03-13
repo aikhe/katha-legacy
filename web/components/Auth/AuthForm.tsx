@@ -30,6 +30,8 @@ import { AuthType } from "@/types/auth";
 import Email from "../Icons/AuthForm/Email";
 import Lock from "../Icons/AuthForm/Lock";
 
+import styles from "./auth.module.css";
+
 const FormSchema = z
   .object({
     email: z.string().email({ message: "Invalid Email Address" }),
@@ -69,12 +71,12 @@ const AuthForm: FC<AuthFormProp> = ({ authType }) => {
       {isVerify && !isPending && !error ? (
         <OtpForm />
       ) : (
-        <Card className="w-[444px] rounded-none font-helvetica">
-          <CardHeader className="pt-[26px] pb-0 gap-[3px] px-[30px]">
-            <CardTitle className="text-2xl leading-none tracking-[-2%] font-bold text-[#0C0D0E]">
+        <Card className={styles.card}>
+          <CardHeader className={styles.cardHeader}>
+            <CardTitle className={styles.cardTitle}>
               {authType === "login" ? "Log in" : "Sign up"}
             </CardTitle>
-            <CardDescription className="text-[14px] font-normal leading-none tracking-[2%] text-[#99A0AE]">
+            <CardDescription className={styles.cardDescription}>
               {authType === "login" ? (
                 <p>Enter your details below to sign into your account.</p>
               ) : (
@@ -91,25 +93,22 @@ const AuthForm: FC<AuthFormProp> = ({ authType }) => {
             </CardDescription>
           </CardHeader>
 
-          <CardContent className="px-[30px] pb-0">
+          <CardContent className={styles.cardContent}>
             <Form {...form}>
               <form onSubmit={form.handleSubmit(onSubmit)}>
-                <div className="space-y-[10px] py-[26px]">
+                <div className={styles.formFieldContainer}>
                   <FormField
                     control={form.control}
                     name="email"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel className="text-[14px] tracking-[2%] font-normal text-[#0C0D0E]">
+                        <FormLabel className={styles.formLabel}>
                           Email
                         </FormLabel>
-                        <FormControl className="mt-[6px]">
-                          <div className="relative">
-                            <Email className="absolute z-10 top-1/2 -translate-y-1/2 left-[12px]" />
-                            <Input
-                              className="text-[14px] rounded-none px-[12px] py-[6px] pl-[34px] text-[#0C0D0E] font-normal border-[#E1E4EA] tracking-[2%] focus-visible:ring-[#667085] focus-visible:ring-[1px] focus-visible:ring-offset-0 placeholder:text-[#99A0AE] drop-shadow-[0_1px_3px_rgba(143,143,143,0.20)]"
-                              {...field}
-                            />
+                        <FormControl className={styles.formControl}>
+                          <div className={styles.inputContainer}>
+                            <Email className={styles.inputIcon} />
+                            <Input className={styles.inputField} {...field} />
                           </div>
                         </FormControl>
                         <FormMessage />
@@ -121,16 +120,13 @@ const AuthForm: FC<AuthFormProp> = ({ authType }) => {
                     name="password"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel className="text-[14px] tracking-[2%] font-normal text-[#0C0D0E]">
+                        <FormLabel className={styles.formLabel}>
                           Password
                         </FormLabel>
-                        <FormControl className="mt-[6px]">
-                          <div className="relative">
-                            <Lock className="absolute z-10 top-1/2 -translate-y-1/2 left-[12px]" />
-                            <Input
-                              className="text-[14px] rounded-none px-[12px] py-[6px] pl-[34px] text-[#0C0D0E] font-normal border-[#E1E4EA] tracking-[2%] focus-visible:ring-[#667085] focus-visible:ring-[1px] focus-visible:ring-offset-0 placeholder:text-[#99A0AE] drop-shadow-[0_1px_3px_rgba(143,143,143,0.20)]"
-                              {...field}
-                            />
+                        <FormControl className={styles.formControl}>
+                          <div className={styles.inputContainer}>
+                            <Lock className={styles.inputIcon} />
+                            <Input className={styles.inputField} {...field} />
                           </div>
                         </FormControl>
                         <FormMessage />
@@ -142,16 +138,13 @@ const AuthForm: FC<AuthFormProp> = ({ authType }) => {
                     name="confirmPassword"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel className="text-[14px] tracking-[2%] font-normal text-[#0C0D0E]">
+                        <FormLabel className={styles.formLabel}>
                           Confirm Password
                         </FormLabel>
-                        <FormControl className="mt-[6px]">
-                          <div className="relative">
-                            <Lock className="absolute z-10 top-1/2 -translate-y-1/2 left-[12px]" />
-                            <Input
-                              className="text-[14px] rounded-none px-[12px] py-[6px] pl-[34px] text-[#0C0D0E] font-normal border-[#E1E4EA] tracking-[2%] focus-visible:ring-[#667085] focus-visible:ring-[1px] focus-visible:ring-offset-0 placeholder:text-[#99A0AE] drop-shadow-[0_1px_3px_rgba(143,143,143,0.20)]"
-                              {...field}
-                            />
+                        <FormControl className={styles.formControl}>
+                          <div className={styles.inputContainer}>
+                            <Lock className={styles.inputIcon} />
+                            <Input className={styles.inputField} {...field} />
                           </div>
                         </FormControl>
                         <FormMessage />

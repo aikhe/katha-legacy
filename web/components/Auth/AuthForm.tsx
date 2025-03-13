@@ -31,6 +31,7 @@ import Email from "../Icons/AuthForm/Email";
 import Lock from "../Icons/AuthForm/Lock";
 
 import styles from "./auth.module.css";
+import ArrowDownLeft from "../Icons/AuthForm/ArrowDownLeft";
 
 const FormSchema = z
   .object({
@@ -158,10 +159,8 @@ const AuthForm: FC<AuthFormProp> = ({ authType }) => {
                   {error && <p style={{ color: "red" }}>{error}</p>}
                 </div>
 
-                <Button
-                  className="rounded-none font-normal text-[14px] tracking-[2%] bg-[#0C0D0E] w-full"
-                  type="submit"
-                >
+                <Button className={styles.formButton} type="submit">
+                  {/*
                   {isPending
                     ? authType === "login"
                       ? "Logging in..."
@@ -169,6 +168,11 @@ const AuthForm: FC<AuthFormProp> = ({ authType }) => {
                     : authType === "login"
                       ? "Log in"
                       : "Create account"}
+                  */}
+                  Create account{" "}
+                  <div className={styles.buttonIconWrapper}>
+                    <ArrowDownLeft className={styles.buttonIcon} />
+                  </div>
                 </Button>
               </form>
             </Form>

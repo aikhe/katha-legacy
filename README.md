@@ -291,3 +291,4 @@ A vault system to keep me from **completely losing my mind**. This is a simple a
 
 - [Midday](https://midday.ai/)
 - [Opennote](https://opennote.me/)
+- [ShadcnBlocks](https://nsui.irung.me/)

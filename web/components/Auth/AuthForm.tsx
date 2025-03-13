@@ -130,6 +130,9 @@ const AuthForm: FC<AuthFormProp> = ({ authType }) => {
                           </div>
                         </FormControl>
                         <FormMessage />
+                        <li className={styles.passwordRule}>
+                          Minimum 8 characters long
+                        </li>
                       </FormItem>
                     )}
                   />

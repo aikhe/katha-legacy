@@ -3,7 +3,7 @@ import { FC } from "react";
 import { Button } from "@/components/ui/button";
 import Google from "@/components/Icons/AuthForm/Google";
 
-import styles from "./oauth.module.css";
+import styles from "./index.module.css";
 
 const GoogleAuth: FC = () => {
   return (

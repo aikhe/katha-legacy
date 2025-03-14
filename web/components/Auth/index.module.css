@@ -38,7 +38,7 @@
 
 .cardContent {
   @apply px-[26px]
-    py-[28px];
+    py-[24px];
 }
 
 .formFieldContainer {
@@ -106,7 +106,7 @@
     bg-[#0C0D0E] 
     h-[38px]
     w-full
-    mt-3
+    mt-2
     drop-shadow-[0_1px_4px_rgba(143,143,143,0.80)];
 }
 

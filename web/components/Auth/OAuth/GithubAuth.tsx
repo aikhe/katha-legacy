@@ -3,7 +3,7 @@ import { FC } from "react";
 import { Button } from "@/components/ui/button";
 import Github from "@/components/Icons/AuthForm/Github";
 
-import styles from "./oauth.module.css";
+import styles from "./index.module.css";
 
 const GithubAuth: FC = () => {
   return (

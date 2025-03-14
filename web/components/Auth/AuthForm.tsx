@@ -33,7 +33,7 @@ import ArrowDownLeft from "../Icons/AuthForm/ArrowDownLeft";
 import GoogleAuth from "./OAuth/GoogleAuth";
 import GithubAuth from "./OAuth/GithubAuth";
 
-import styles from "./auth.module.css";
+import styles from "./index.module.css";
 
 const FormSchema = z
   .object({

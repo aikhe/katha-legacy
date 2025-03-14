@@ -1,8 +1,9 @@
 .card {
   @apply w-[444px]
-	rounded-none
-	font-helvetica
-	border-[#E1E4EA];
+    rounded-none
+    font-helvetica
+    border-[#E1E4EA]
+    drop-shadow-[0_1px_2px_rgba(143,143,143,0.20)];
 }
 
 .cardHeader {
@@ -37,7 +38,7 @@
 
 .cardContent {
   @apply px-[26px]
-    py-[24px];
+    py-[28px];
 }
 
 .formFieldContainer {
@@ -53,7 +54,7 @@
 }
 
 .formControl {
-  @apply mt-[6px];
+  @apply mt-[4px];
 }
 
 .inputContainer {
@@ -145,4 +146,19 @@
 
 .oauthContainer {
   @apply space-y-3;
+}
+
+.cardFooter {
+  @apply bg-[#F2F5F8]
+    text-[#99A0AE]
+    font-normal
+    text-[12px] 
+    tracking-[4%] 
+    py-[14px]
+    px-[26px]
+    flex
+    items-center
+    justify-between
+    border-[#E1E4EA]
+    border-t;
 }

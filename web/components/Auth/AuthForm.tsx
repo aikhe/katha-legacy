@@ -184,7 +184,10 @@ const AuthForm: FC<AuthFormProp> = ({ authType }) => {
             </div>
           </CardContent>
 
-          <CardFooter></CardFooter>
+          <CardFooter className={styles.cardFooter}>
+            <span>Katha @2025</span>
+            <p>A vault system to keep me sane.</p>
+          </CardFooter>
         </Card>
       )}
     </>

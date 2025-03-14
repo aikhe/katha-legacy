@@ -1,6 +1,7 @@
 .button {
   @apply rounded-none 
     font-normal
+    text-[#0C0D0E]
     text-[14px] 
     tracking-[2%] 
     border

@@ -28,14 +28,21 @@
 	text-[#99A0AE];
 }
 
+.cardDescriptionLink {
+  @apply text-[#0C0D0E]
+    font-medium
+    underline
+    underline-offset-4;
+}
+
 .cardContent {
   @apply px-[26px]
-	pb-0;
+    py-[24px];
 }
 
 .formFieldContainer {
   @apply space-y-[10px]
-	py-[24px];
+	pb-[24px];
 }
 
 .formLabel {
@@ -69,6 +76,7 @@
     pl-[34px]
     text-[#0C0D0E]
     font-normal
+    border
     border-[#E1E4EA]
     tracking-[2%]
     focus-visible:ring-[#667085]
@@ -103,7 +111,7 @@
 
 .buttonIconWrapper {
   @apply border 
-    h-[20px] 
+    h-[22px] 
     w-[22px]
     ml-[2px]
     border-white/20
@@ -113,6 +121,28 @@
 }
 
 .buttonIcon {
-  @apply size-[12px]
+  @apply size-[10px]
     -ml-[1px];
+}
+
+.continueWithOAuth {
+  @apply w-full
+    text-[#99A0AE]
+    font-normal
+    text-[14px] 
+    tracking-[2%] 
+    flex
+    my-4
+    items-center
+    gap-x-[8px]
+    before:bg-[#E1E4EA]
+    before:h-px
+    before:flex-1
+    after:bg-[#E1E4EA]
+    after:h-px
+    after:flex-1;
+}
+
+.oauthContainer {
+  @apply space-y-3;
 }

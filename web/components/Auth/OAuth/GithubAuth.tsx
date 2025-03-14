@@ -1,16 +1,16 @@
 import { FC } from "react";
 
 import { Button } from "@/components/ui/button";
-import Google from "@/components/Icons/AuthForm/Google";
+import Github from "@/components/Icons/AuthForm/Github";
 
 import styles from "./oauth.module.css";
 
-const GoogleAuth: FC = () => {
+const GithubAuth: FC = () => {
   return (
     <Button variant={"outline"} className={styles.button}>
-      <Google className={styles.icon} /> Google
+      <Github className={styles.icon} /> Github
     </Button>
   );
 };
 
-export default GoogleAuth;
+export default GithubAuth;

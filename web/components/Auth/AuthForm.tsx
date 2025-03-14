@@ -29,9 +29,11 @@ import { Input } from "../ui/input";
 import { AuthType } from "@/types/auth";
 import Email from "../Icons/AuthForm/Email";
 import Lock from "../Icons/AuthForm/Lock";
+import ArrowDownLeft from "../Icons/AuthForm/ArrowDownLeft";
+import GoogleAuth from "./OAuth/GoogleAuth";
+import GithubAuth from "./OAuth/GithubAuth";
 
 import styles from "./auth.module.css";
-import ArrowDownLeft from "../Icons/AuthForm/ArrowDownLeft";
 
 const FormSchema = z
   .object({
@@ -83,10 +85,7 @@ const AuthForm: FC<AuthFormProp> = ({ authType }) => {
               ) : (
                 <p>
                   Already have an account?{" "}
-                  <a
-                    className="text-[#0C0D0E] font-medium underline underline-offset-4"
-                    href="/auth/login"
-                  >
+                  <a className={styles.cardDescriptionLink} href="/auth/login">
                     Log in
                   </a>
                 </p>
@@ -176,6 +175,13 @@ const AuthForm: FC<AuthFormProp> = ({ authType }) => {
                 </Button>
               </form>
             </Form>
+
+            <p className={styles.continueWithOAuth}>Or continue with</p>
+
+            <div className={styles.oauthContainer}>
+              <GoogleAuth />
+              <GithubAuth />
+            </div>
           </CardContent>
 
           <CardFooter></CardFooter>

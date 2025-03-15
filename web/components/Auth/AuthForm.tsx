@@ -82,9 +82,15 @@ const AuthForm: FC<AuthFormProp> = ({ authType }) => {
         e.target.selectionStart,
       );
       console.log("ChardAdded", charsAdded);
-      console.log(e.target.selectionStart - numAdded);
+      console.log(
+        `${e.target.selectionStart - numAdded}, ${e.target.selectionStart}`,
+      );
 
-      pass.splice(e.target.selectionStart - numAdded, 0, charsAdded);
+      pass.splice(
+        e.target.selectionStart - numAdded,
+        0,
+        ...charsAdded.split(""),
+      );
 
       setTimeout(
         () => (e.target.value = e.target.value.replace(/./g, "0")),

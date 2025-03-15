@@ -92,10 +92,13 @@ const AuthForm: FC<AuthFormProp> = ({ authType }) => {
         ...charsAdded.split(""),
       );
 
-      setTimeout(
-        () => (e.target.value = e.target.value.replace(/./g, "0")),
-        250,
-      );
+      setTimeout(() => {
+        const cursorPos = e.target.selectionStart;
+
+        e.target.value = e.target.value.replace(/./g, "0");
+
+        e.target.setSelectionRange(cursorPos, cursorPos);
+      }, 250);
     } else if (numAdded < 0) {
       pass.splice(e.target.selectionStart, numAdded * -1);
     }

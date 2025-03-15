@@ -36,6 +36,8 @@ import GithubAuth from "./OAuth/GithubAuth";
 import styles from "./index.module.css";
 import { Eye, EyeOff } from "lucide-react";
 
+let pass: string[] = [];
+
 const FormSchema = z
   .object({
     email: z.string().email({ message: "Invalid Email Address" }),
@@ -71,10 +73,28 @@ const AuthForm: FC<AuthFormProp> = ({ authType }) => {
   };
 
   const maskInput = (e: any) => {
-    console.log(e.target.value);
-    console.log(e.target.selectionStart);
+    const numAdded = e.target.value.length - pass.length;
+    console.log("numAdded", numAdded);
 
-    e.target.value = e.target.value.replace(/./g, "0");
+    if (numAdded > 0) {
+      const charsAdded = e.target.value.slice(
+        e.target.selectionStart - numAdded,
+        e.target.selectionStart,
+      );
+      console.log("ChardAdded", charsAdded);
+      console.log(e.target.selectionStart - numAdded);
+
+      pass.splice(e.target.selectionStart - numAdded, 0, charsAdded);
+
+      setTimeout(
+        () => (e.target.value = e.target.value.replace(/./g, "0")),
+        250,
+      );
+    } else if (numAdded < 0) {
+      pass.splice(e.target.selectionStart, numAdded * -1);
+    }
+    console.log(pass);
+    console.log(pass.join(""));
   };
 
   return (

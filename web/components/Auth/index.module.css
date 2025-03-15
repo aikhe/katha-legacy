@@ -87,6 +87,14 @@
     drop-shadow-[0_1px_3px_rgba(143,143,143,0.20)];
 }
 
+.inputPasswordReveal {
+  @apply absolute
+    z-10
+    top-1/2
+    -translate-y-1/2
+    right-[12px];
+}
+
 .passwordRule {
   @apply text-[14px]
     font-normal

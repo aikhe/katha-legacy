@@ -34,6 +34,7 @@ import GoogleAuth from "./OAuth/GoogleAuth";
 import GithubAuth from "./OAuth/GithubAuth";
 
 import styles from "./index.module.css";
+import { Eye, EyeOff } from "lucide-react";
 
 const FormSchema = z
   .object({
@@ -67,6 +68,13 @@ const AuthForm: FC<AuthFormProp> = ({ authType }) => {
     if (authType === "signup") {
       setIsVerify(!isVerify);
     }
+  };
+
+  const maskInput = (e: any) => {
+    console.log(e.target.value);
+    console.log(e.target.selectionStart);
+
+    e.target.value = e.target.value.replace(/./g, "0");
   };
 
   return (
@@ -126,7 +134,14 @@ const AuthForm: FC<AuthFormProp> = ({ authType }) => {
                         <FormControl className={styles.formControl}>
                           <div className={styles.inputContainer}>
                             <Lock className={styles.inputIcon} />
-                            <Input className={styles.inputField} {...field} />
+                            <Input
+                              onInput={maskInput}
+                              className={styles.inputField}
+                              {...field}
+                            />
+                            <button className={styles.inputPasswordReveal}>
+                              <Eye size={16} color="#98A2B3" />
+                            </button>
                           </div>
                         </FormControl>
                         <FormMessage />
@@ -148,6 +163,9 @@ const AuthForm: FC<AuthFormProp> = ({ authType }) => {
                           <div className={styles.inputContainer}>
                             <Lock className={styles.inputIcon} />
                             <Input className={styles.inputField} {...field} />
+                            <button className={styles.inputPasswordReveal}>
+                              <EyeOff size={16} color="#98A2B3" />
+                            </button>
                           </div>
                         </FormControl>
                         <FormMessage />

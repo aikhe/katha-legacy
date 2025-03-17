@@ -35,8 +35,10 @@ import GithubAuth from "./OAuth/GithubAuth";
 
 import styles from "./index.module.css";
 import { Eye, EyeOff } from "lucide-react";
+import { maskInput } from "@/util/maskInput";
 
-let pass: string[] = [];
+const passArray: string[] = [];
+const confirmPassArray: string[] = [];
 
 const FormSchema = z
   .object({
@@ -44,7 +46,7 @@ const FormSchema = z
     password: z.string().min(8, { message: "Password is too short" }),
     confirmPassword: z.string().min(8, { message: "Password is too short" }),
   })
-  .refine((data) => pass.join("") === data.confirmPassword, {
+  .refine((data) => passArray.join("") === confirmPassArray.join(), {
     message: "Password does't match",
     path: ["confirmPassword"],
   });
@@ -66,44 +68,10 @@ const AuthForm: FC<AuthFormProp> = ({ authType }) => {
   const { error, isPending, handleAuth } = useAuth(authType);
 
   const onSubmit = (data: z.infer<typeof FormSchema>) => {
-    handleAuth(data.email, pass.join());
+    handleAuth(data.email, passArray.join());
     if (authType === "signup") {
       setIsVerify(!isVerify);
     }
-  };
-
-  const maskInput = (e: any) => {
-    const numAdded = e.target.value.length - pass.length;
-    console.log("numAdded", numAdded);
-
-    if (numAdded > 0) {
-      const charsAdded = e.target.value.slice(
-        e.target.selectionStart - numAdded,
-        e.target.selectionStart,
-      );
-      console.log("ChardAdded", charsAdded);
-      console.log(
-        `${e.target.selectionStart - numAdded}, ${e.target.selectionStart}`,
-      );
-
-      pass.splice(
-        e.target.selectionStart - numAdded,
-        0,
-        ...charsAdded.split(""),
-      );
-
-      setTimeout(() => {
-        const cursorPos = e.target.selectionStart;
-
-        e.target.value = e.target.value.replace(/./g, "•");
-
-        e.target.setSelectionRange(cursorPos, cursorPos);
-      }, 500);
-    } else if (numAdded < 0) {
-      pass.splice(e.target.selectionStart, numAdded * -1);
-    }
-    console.log(pass);
-    console.log(pass.join(""));
   };
 
   return (
@@ -164,7 +132,7 @@ const AuthForm: FC<AuthFormProp> = ({ authType }) => {
                           <div className={styles.inputContainer}>
                             <Lock className={styles.inputIcon} />
                             <Input
-                              onInput={maskInput}
+                              onInput={maskInput(this, passArray)}
                               className={styles.inputField}
                               {...field}
                             />
@@ -191,7 +159,11 @@ const AuthForm: FC<AuthFormProp> = ({ authType }) => {
                         <FormControl className={styles.formControl}>
                           <div className={styles.inputContainer}>
                             <Lock className={styles.inputIcon} />
-                            <Input className={styles.inputField} {...field} />
+                            <Input
+                              onInput={maskInput(this, passArray)}
+                              className={styles.inputField}
+                              {...field}
+                            />
                             <button className={styles.inputPasswordReveal}>
                               <EyeOff size={16} color="#98A2B3" />
                             </button>

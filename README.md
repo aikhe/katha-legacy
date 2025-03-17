@@ -265,6 +265,8 @@ A vault system to keep me from **completely losing my mind**. This is a simple a
   - [ ] Auth
     - [ ] Login form
     - [ ] Signup form
+    - [x] Password masking
+    - [ ] Show/hide pass
 
 - STYLING
 

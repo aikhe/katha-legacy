@@ -44,7 +44,7 @@ const FormSchema = z
     password: z.string().min(8, { message: "Password is too short" }),
     confirmPassword: z.string().min(8, { message: "Password is too short" }),
   })
-  .refine((data) => data.password === data.confirmPassword, {
+  .refine((data) => pass.join("") === data.confirmPassword, {
     message: "Password does't match",
     path: ["confirmPassword"],
   });
@@ -66,7 +66,7 @@ const AuthForm: FC<AuthFormProp> = ({ authType }) => {
   const { error, isPending, handleAuth } = useAuth(authType);
 
   const onSubmit = (data: z.infer<typeof FormSchema>) => {
-    handleAuth(data.email, data.password);
+    handleAuth(data.email, pass.join());
     if (authType === "signup") {
       setIsVerify(!isVerify);
     }
@@ -95,10 +95,10 @@ const AuthForm: FC<AuthFormProp> = ({ authType }) => {
       setTimeout(() => {
         const cursorPos = e.target.selectionStart;
 
-        e.target.value = e.target.value.replace(/./g, "0");
+        e.target.value = e.target.value.replace(/./g, "•");
 
         e.target.setSelectionRange(cursorPos, cursorPos);
-      }, 250);
+      }, 500);
     } else if (numAdded < 0) {
       pass.splice(e.target.selectionStart, numAdded * -1);
     }

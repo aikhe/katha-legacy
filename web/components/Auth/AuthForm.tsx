@@ -37,8 +37,8 @@ import styles from "./index.module.css";
 import { Eye, EyeOff } from "lucide-react";
 import { maskInput } from "@/util/maskInput";
 
-const passArray: string[] = [];
-const confirmPassArray: string[] = [];
+let passArray: string[] = [];
+let confirmPassArray: string[] = [];
 
 const FormSchema = z
   .object({
@@ -46,7 +46,7 @@ const FormSchema = z
     password: z.string().min(8, { message: "Password is too short" }),
     confirmPassword: z.string().min(8, { message: "Password is too short" }),
   })
-  .refine((data) => passArray.join("") === confirmPassArray.join(), {
+  .refine(() => passArray.join("") === confirmPassArray.join(""), {
     message: "Password does't match",
     path: ["confirmPassword"],
   });
@@ -123,7 +123,7 @@ const AuthForm: FC<AuthFormProp> = ({ authType }) => {
                   <FormField
                     control={form.control}
                     name="password"
-                    render={({ field }) => (
+                    render={() => (
                       <FormItem>
                         <FormLabel className={styles.formLabel}>
                           Password
@@ -132,9 +132,14 @@ const AuthForm: FC<AuthFormProp> = ({ authType }) => {
                           <div className={styles.inputContainer}>
                             <Lock className={styles.inputIcon} />
                             <Input
-                              onInput={maskInput(this, passArray)}
+                              onInput={(e) => {
+                                const updatedArray = maskInput(e, passArray);
+                                passArray = updatedArray;
+
+                                console.log("pass array:", passArray);
+                              }}
                               className={styles.inputField}
-                              {...field}
+                              {...form.register("password")}
                             />
                             <button className={styles.inputPasswordReveal}>
                               <Eye size={16} color="#98A2B3" />
@@ -151,7 +156,7 @@ const AuthForm: FC<AuthFormProp> = ({ authType }) => {
                   <FormField
                     control={form.control}
                     name="confirmPassword"
-                    render={({ field }) => (
+                    render={() => (
                       <FormItem>
                         <FormLabel className={styles.formLabel}>
                           Confirm Password
@@ -160,9 +165,20 @@ const AuthForm: FC<AuthFormProp> = ({ authType }) => {
                           <div className={styles.inputContainer}>
                             <Lock className={styles.inputIcon} />
                             <Input
-                              onInput={maskInput(this, passArray)}
+                              onInput={(e) => {
+                                const updatedArray = maskInput(
+                                  e,
+                                  confirmPassArray,
+                                );
+                                confirmPassArray = updatedArray;
+
+                                console.log(
+                                  "confirm pass array:",
+                                  confirmPassArray,
+                                );
+                              }}
                               className={styles.inputField}
-                              {...field}
+                              {...form.register("confirmPassword")}
                             />
                             <button className={styles.inputPasswordReveal}>
                               <EyeOff size={16} color="#98A2B3" />
@@ -177,7 +193,11 @@ const AuthForm: FC<AuthFormProp> = ({ authType }) => {
                   {error && <p style={{ color: "red" }}>{error}</p>}
                 </div>
 
-                <Button className={styles.formButton} type="submit">
+                <Button
+                  onClick={() => console.log(passArray, confirmPassArray)}
+                  className={styles.formButton}
+                  type="submit"
+                >
                   {/*
                   {isPending
                     ? authType === "login"

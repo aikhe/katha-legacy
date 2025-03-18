@@ -6,10 +6,14 @@ A vault system to keep me from **completely losing my mind**. This is a simple a
 
 - Next.js
 - Supabase
+- Drizzle
+- Postgres
 - React
 - Typescript
-- Tailwind
+- Tailwind & Sass
+- Motion & React three fiber
 - Shadcn
+- Mailjet
 
 
 #### To-:
@@ -293,8 +297,12 @@ A vault system to keep me from **completely losing my mind**. This is a simple a
 
 ### Inspi
 
+- [dipainhouse](https://www.dipainhouse.com/)
+- [Shadcn](https://www.google.com/search?client=firefox-b-d&q=shadcn)
 - [Midday](https://midday.ai/)
+- [T3.Chat](https://t3.chat/chat)
 - [Opennote](https://opennote.me/)
+- [Speechy](https://speechy.tech/)
 - [ShadcnBlocks](https://nsui.irung.me/)
 
 T3rt!@ryF@cSCC2024

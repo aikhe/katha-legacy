@@ -1,44 +1,33 @@
-/**
- * Handles password masking and state management
- *
- * @param event - The input event
- * @param currentValue - Current array of characters
- * @param showPlaintext - Whether to show plaintext or masked characters
- * @returns Updated array of characters
- */
-export const maskInput = (
-  event: React.FormEvent<HTMLInputElement>,
-  currentValue: string[],
-  showPlaintext = false,
-): string[] => {
-  const input = event.currentTarget;
-  const newValue = [...currentValue]; // Create a copy to avoid mutating the original
-  const cursorPosition = input.selectionStart || 0;
-  const previousLength = currentValue.length;
-  const currentLength = input.value.length;
-  const diff = currentLength - previousLength;
+export const maskInput = (e: any, inputArray: any, showPlainText?: boolean) => {
+  const numAdded = e.target.value.length - inputArray.length;
+  console.log("numAdded", numAdded);
 
-  // Handle text addition
-  if (diff > 0) {
-    const addedChars = input.value
-      .substring(cursorPosition - diff, cursorPosition)
-      .split("");
-    newValue.splice(cursorPosition - diff, 0, ...addedChars);
+  if (numAdded > 0) {
+    const charsAdded = e.target.value.slice(
+      e.target.selectionStart - numAdded,
+      e.target.selectionStart,
+    );
+    console.log("ChardAdded", charsAdded);
+    console.log(
+      `${e.target.selectionStart - numAdded}, ${e.target.selectionStart}`,
+    );
 
-    // Mask the input if not showing plaintext
-    if (!showPlaintext) {
-      // Use requestAnimationFrame for better performance
-      requestAnimationFrame(() => {
-        const maskedValue = "•".repeat(newValue.length);
-        input.value = maskedValue;
-        input.setSelectionRange(cursorPosition, cursorPosition);
-      });
+    inputArray.splice(e.target.selectionStart - numAdded, 0, ...charsAdded);
+
+    if (!showPlainText) {
+      setTimeout(() => {
+        const cursorPos = e.target.selectionStart;
+
+        e.target.value = "•".repeat(e.target.value.length);
+
+        e.target.setSelectionRange(cursorPos, cursorPos);
+      }, 500);
     }
+  } else if (numAdded < 0) {
+    inputArray.splice(e.target.selectionStart, Math.abs(numAdded));
   }
-  // Handle text deletion
-  else if (diff < 0) {
-    newValue.splice(cursorPosition, Math.abs(diff));
-  }
+  console.log(inputArray);
+  console.log(inputArray.join(""));
 
-  return newValue;
+  return inputArray;
 };

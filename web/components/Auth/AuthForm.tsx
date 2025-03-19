@@ -1,6 +1,6 @@
 "use client";
 
-import { FC, useState } from "react";
+import { FC, useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -38,12 +38,14 @@ import { Eye, EyeOff } from "lucide-react";
 import { maskInput } from "@/util/maskInput";
 
 let passArray: string[] = [];
+let passShadowArray: string[] = [];
 let confirmPassArray: string[] = [];
 
 const FormSchema = z
   .object({
     email: z.string().email({ message: "Invalid Email Address" }),
     password: z.string().min(8, { message: "Password is too short" }),
+    passwordShadow: z.string().min(8, { message: "Password is too short" }),
     confirmPassword: z.string().min(8, { message: "Password is too short" }),
   })
   .refine(() => passArray.join("") === confirmPassArray.join(""), {
@@ -55,12 +57,14 @@ type AuthFormProp = { authType: AuthType };
 
 const AuthForm: FC<AuthFormProp> = ({ authType }) => {
   const [isVerify, setIsVerify] = useState(false);
+  const [showPassword, setIsShowPassword] = useState(false);
 
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
     defaultValues: {
       email: "",
       password: "",
+      passwordShadow: "",
       confirmPassword: "",
     },
   });
@@ -73,6 +77,12 @@ const AuthForm: FC<AuthFormProp> = ({ authType }) => {
       setIsVerify(!isVerify);
     }
   };
+
+  useEffect(() => {
+    const passInput =
+      (document.getElementById("passInput") as HTMLInputElement) || null;
+    passInput.value = passArray.join("");
+  }, [showPassword]);
 
   return (
     <>
@@ -110,16 +120,19 @@ const AuthForm: FC<AuthFormProp> = ({ authType }) => {
                         <FormLabel className={styles.formLabel}>
                           Email
                         </FormLabel>
+
                         <FormControl className={styles.formControl}>
                           <div className={styles.inputContainer}>
                             <Email className={styles.inputIcon} />
                             <Input className={styles.inputField} {...field} />
                           </div>
                         </FormControl>
+
                         <FormMessage />
                       </FormItem>
                     )}
                   />
+
                   <FormField
                     control={form.control}
                     name="password"
@@ -128,31 +141,42 @@ const AuthForm: FC<AuthFormProp> = ({ authType }) => {
                         <FormLabel className={styles.formLabel}>
                           Password
                         </FormLabel>
+
                         <FormControl className={styles.formControl}>
                           <div className={styles.inputContainer}>
                             <Lock className={styles.inputIcon} />
                             <Input
+                              id="passInput"
                               onInput={(e) => {
-                                const updatedArray = maskInput(e, passArray);
-                                passArray = updatedArray;
+                                if (showPassword === false) {
+                                  const updatedArray = maskInput(e, passArray);
+                                  passArray = updatedArray;
 
-                                console.log("pass array:", passArray);
+                                  console.log("pass array:", passArray);
+                                }
                               }}
-                              className={styles.inputField}
+                              className="styles.inputField"
                               {...form.register("password")}
                             />
-                            <button className={styles.inputPasswordReveal}>
+                            <button
+                              type="button"
+                              onClick={() => setIsShowPassword(!showPassword)}
+                              className={styles.inputPasswordReveal}
+                            >
                               <Eye size={16} color="#98A2B3" />
                             </button>
                           </div>
                         </FormControl>
+
                         <FormMessage />
+
                         <li className={styles.passwordRule}>
                           Minimum 8 characters long
                         </li>
                       </FormItem>
                     )}
                   />
+
                   <FormField
                     control={form.control}
                     name="confirmPassword"
@@ -161,6 +185,7 @@ const AuthForm: FC<AuthFormProp> = ({ authType }) => {
                         <FormLabel className={styles.formLabel}>
                           Confirm Password
                         </FormLabel>
+
                         <FormControl className={styles.formControl}>
                           <div className={styles.inputContainer}>
                             <Lock className={styles.inputIcon} />
@@ -185,6 +210,7 @@ const AuthForm: FC<AuthFormProp> = ({ authType }) => {
                             </button>
                           </div>
                         </FormControl>
+
                         <FormMessage />
                       </FormItem>
                     )}
@@ -198,7 +224,6 @@ const AuthForm: FC<AuthFormProp> = ({ authType }) => {
                   className={styles.formButton}
                   type="submit"
                 >
-                  {/*
                   {isPending
                     ? authType === "login"
                       ? "Logging in..."
@@ -206,8 +231,6 @@ const AuthForm: FC<AuthFormProp> = ({ authType }) => {
                     : authType === "login"
                       ? "Log in"
                       : "Create account"}
-                  */}
-                  Create account{" "}
                   <div className={styles.buttonIconWrapper}>
                     <ArrowDownLeft className={styles.buttonIcon} />
                   </div>

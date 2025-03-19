@@ -43,7 +43,7 @@
 
 .formFieldContainer {
   @apply space-y-[10px]
-	pb-[24px];
+    pb-[24px];
 }
 
 .formLabel {
@@ -92,6 +92,7 @@
     z-10
     top-1/2
     -translate-y-1/2
+    cursor-pointer
     right-[12px];
 }
 

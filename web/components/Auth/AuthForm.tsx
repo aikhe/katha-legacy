@@ -81,7 +81,12 @@ const AuthForm: FC<AuthFormProp> = ({ authType }) => {
   useEffect(() => {
     const passInput =
       (document.getElementById("passInput") as HTMLInputElement) || null;
-    passInput.value = passArray.join("");
+
+    if (showPassword) {
+      passInput.value = passArray.join("");
+    } else {
+      passInput.value = "•".repeat(passArray.length);
+    }
   }, [showPassword]);
 
   return (
@@ -153,9 +158,39 @@ const AuthForm: FC<AuthFormProp> = ({ authType }) => {
                                   passArray = updatedArray;
 
                                   console.log("pass array:", passArray);
+                                } else {
+                                  const target = e.target as HTMLInputElement;
+                                  const numAdded =
+                                    target.value.length - passArray.length;
+                                  console.log("numAdded", numAdded);
+
+                                  if (numAdded > 0) {
+                                    const charsAdded = target.value.slice(
+                                      target.selectionStart! - numAdded,
+                                      target.selectionStart!,
+                                    );
+                                    console.log("CharsAdded", charsAdded);
+                                    console.log(
+                                      `${target.selectionStart! - numAdded}, ${target.selectionStart!}`,
+                                    );
+
+                                    passArray.splice(
+                                      target.selectionStart! - numAdded,
+                                      0,
+                                      ...charsAdded.split(""),
+                                    );
+                                  } else if (numAdded < 0) {
+                                    passArray.splice(
+                                      target.selectionStart!,
+                                      numAdded * -1,
+                                    );
+                                  }
+
+                                  console.log(passArray);
+                                  console.log(passArray.join(""));
                                 }
                               }}
-                              className="styles.inputField"
+                              className={styles.inputField}
                               {...form.register("password")}
                             />
                             <button

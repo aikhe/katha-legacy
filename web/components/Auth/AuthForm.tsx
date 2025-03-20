@@ -1,6 +1,6 @@
 "use client";
 
-import { FC, useEffect, useState } from "react";
+import { FC, isValidElement, useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -57,6 +57,7 @@ const AuthForm: FC<AuthFormProp> = ({ authType }) => {
   const [isVerify, setIsVerify] = useState(false);
   const [showPass, setIsShowPass] = useState(false);
   const [showConfirmPass, setIsShowConfirmPass] = useState(false);
+  const [validatePassword, isValidatePassword] = useState(false);
 
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
@@ -90,6 +91,11 @@ const AuthForm: FC<AuthFormProp> = ({ authType }) => {
 
     console.log("pass array:", passArray);
     form.setValue("password", passArray.join(""), { shouldValidate: true });
+    if (validatePassword) {
+      form.setValue("confirmPassword", confirmPassArray.join(""), {
+        shouldValidate: true,
+      });
+    }
   };
 
   const handleConfirmPassInput = (e: any) => {
@@ -244,7 +250,9 @@ const AuthForm: FC<AuthFormProp> = ({ authType }) => {
                 </div>
 
                 <Button
-                  onClick={() => console.log(passArray, confirmPassArray)}
+                  onClick={() =>
+                    !validatePassword && isValidatePassword(!validatePassword)
+                  }
                   className={styles.formButton}
                   type="submit"
                 >

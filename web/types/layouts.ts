@@ -1,1 +1,1 @@
-export type Layouts = "home" | "auth" | "dashboard";
+export type Layouts = "home" | "auth" | "dashboard" | "test";

@@ -5,11 +5,13 @@ import DefaultLayout from "@/layouts/Default";
 import HomeLayout from "@/layouts/Home";
 import AuthLayout from "@/layouts/Auth";
 import DashboardLayout from "@/layouts/Dashboard";
+import TestLayout from "@/layouts/Test";
 
 const layouts: Record<Layouts, FC<PropsWithChildren<{}>>> = {
   home: HomeLayout,
   auth: AuthLayout,
   dashboard: DashboardLayout,
+  test: TestLayout,
 };
 
 type WithLayoutProps<L = Layouts> = PropsWithChildren<{ layout: L }>;

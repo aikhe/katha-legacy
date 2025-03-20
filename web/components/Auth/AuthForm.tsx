@@ -36,7 +36,10 @@ import ArrowDownLeft from "../Icons/AuthForm/ArrowDownLeft";
 import { Eye, EyeOff } from "lucide-react";
 
 import styles from "./index.module.css";
-import useValidatePassword from "@/hooks/useValidatePassword";
+import {
+  useValidateConfirmPass,
+  useValidatePass,
+} from "@/hooks/useValidatePassword";
 
 const FormSchema = z
   .object({
@@ -66,17 +69,21 @@ const AuthForm: FC<AuthFormProp> = ({ authType }) => {
   const { error, isPending, handleAuth } = useAuth(authType);
 
   const {
+    passFieldState,
     handlePassInput,
-    handleConfirmPassInput,
-    toggleShowPass,
-    passState,
-    confirmPassState,
+    toggleShowPassInput,
     validatePassword,
     isValidatePassword,
-  } = useValidatePassword(form);
+  } = useValidatePass(form, "password");
+
+  const {
+    confirmPassFieldState,
+    handleConfirmPassInput,
+    toggleShowConfirmPassInput,
+  } = useValidateConfirmPass(form, "confirmPassword");
 
   const onSubmit = (data: z.infer<typeof FormSchema>) => {
-    handleAuth(data.email, passState.fieldArray.join(""));
+    handleAuth(data.email, form.getValues("password"));
 
     if (authType === "signup") {
       setIsVerifying(!isVerifying);
@@ -141,7 +148,7 @@ const AuthForm: FC<AuthFormProp> = ({ authType }) => {
                       <div className={styles.inputContainer}>
                         <Lock className={styles.inputIcon} />
                         <Input
-                          id="pass-field"
+                          id="password"
                           onInput={(e) => {
                             handlePassInput(e);
                           }}
@@ -149,10 +156,10 @@ const AuthForm: FC<AuthFormProp> = ({ authType }) => {
                         />
                         <button
                           type="button"
-                          onClick={() => toggleShowPass("pass")}
+                          onClick={() => toggleShowPassInput()}
                           className={styles.inputPasswordReveal}
                         >
-                          {passState.showPlainText ? (
+                          {passFieldState.showPlainText ? (
                             <EyeOff size={16} color="#98A2B3" />
                           ) : (
                             <Eye size={16} color="#98A2B3" />
@@ -183,7 +190,7 @@ const AuthForm: FC<AuthFormProp> = ({ authType }) => {
                       <div className={styles.inputContainer}>
                         <Lock className={styles.inputIcon} />
                         <Input
-                          id="confirm-pass-field"
+                          id="confirmPassword"
                           onInput={(e) => {
                             handleConfirmPassInput(e);
                           }}
@@ -191,10 +198,10 @@ const AuthForm: FC<AuthFormProp> = ({ authType }) => {
                         />
                         <button
                           type="button"
-                          onClick={() => toggleShowPass("confirmPass")}
+                          onClick={() => toggleShowConfirmPassInput()}
                           className={styles.inputPasswordReveal}
                         >
-                          {confirmPassState.showPlainText ? (
+                          {confirmPassFieldState.showPlainText ? (
                             <EyeOff size={16} color="#98A2B3" />
                           ) : (
                             <Eye size={16} color="#98A2B3" />

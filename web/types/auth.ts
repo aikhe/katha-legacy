@@ -48,4 +48,4 @@ export interface AuthContextType {
 
 export type AuthType = "login" | "signup";
 
-export type AuthPassFields = "pass" | "confirmPass";
+export type AuthPassFields = "password" | "confirmPassword";

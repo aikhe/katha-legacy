@@ -2,12 +2,8 @@ import { useEffect, useState } from "react";
 import { maskInput } from "@/util/maskInput";
 import { AuthPassFields } from "@/types/auth";
 
-const useValidatePassword = (form: any) => {
-  const [passState, setPassState] = useState({
-    fieldArray: [] as string[],
-    showPlainText: false,
-  });
-  const [confirmPassState, setConfirmPassState] = useState({
+const useValidatePassword = (form: any, field: AuthPassFields) => {
+  const [fieldState, setFieldState] = useState({
     fieldArray: [] as string[],
     showPlainText: false,
   });
@@ -27,74 +23,75 @@ const useValidatePassword = (form: any) => {
       }
     };
 
-    toggleFieldDisplay(
-      "pass-field",
-      passState.fieldArray,
-      passState.showPlainText,
-    );
-    toggleFieldDisplay(
-      "confirm-pass-field",
-      confirmPassState.fieldArray,
-      confirmPassState.showPlainText,
-    );
-  }, [passState.showPlainText, confirmPassState.showPlainText]);
+    toggleFieldDisplay(field, fieldState.fieldArray, fieldState.showPlainText);
+  }, [fieldState.showPlainText]);
 
-  const handlePassInput = (e: any) => {
+  const handleOnInput = (e: any) => {
     const updatedArray = maskInput(
       e,
-      passState.fieldArray,
-      passState.showPlainText,
+      fieldState.fieldArray,
+      fieldState.showPlainText,
     );
-    setPassState((prev) => ({ ...prev, fieldArray: updatedArray }));
+    setFieldState((prev) => ({ ...prev, fieldArray: updatedArray }));
 
-    console.log("pass array:", passState.fieldArray);
-    form.setValue("password", updatedArray.join(""), { shouldValidate: true });
+    form.setValue(
+      field === "password" ? "password" : "confirmPassword",
+      updatedArray.join(""),
+      {
+        shouldValidate: true,
+      },
+    );
 
-    if (validatePassword) {
-      form.setValue("confirmPassword", confirmPassState.fieldArray.join(""), {
+    if (validatePassword && field === "password") {
+      form.setValue("confirmPassword", form.getValues("confirmPassword"), {
         shouldValidate: true,
       });
     }
   };
 
-  const handleConfirmPassInput = (e: any) => {
-    const updatedArray = maskInput(
-      e,
-      confirmPassState.fieldArray,
-      confirmPassState.showPlainText,
-    );
-    setConfirmPassState((prev) => ({ ...prev, fieldArray: updatedArray }));
-
-    console.log("confirm pass array:", confirmPassState.fieldArray);
-
-    form.setValue("confirmPassword", updatedArray.join(""), {
-      shouldValidate: true,
-    });
-  };
-
-  const toggleShowPass = (field: AuthPassFields) => {
-    if (field === "pass") {
-      setPassState((prev) => ({
-        ...prev,
-        showPlainText: !passState.showPlainText,
-      }));
-    } else {
-      setConfirmPassState((prev) => ({
-        ...prev,
-        showPlainText: !confirmPassState.showPlainText,
-      }));
-    }
+  const toggleShowPass = () => {
+    setFieldState((prev) => ({
+      ...prev,
+      showPlainText: !fieldState.showPlainText,
+    }));
   };
 
   return {
-    handlePassInput,
-    handleConfirmPassInput,
+    fieldState,
+    handleOnInput,
     toggleShowPass,
-    passState,
-    confirmPassState,
     validatePassword,
     isValidatePassword,
   };
 };
 
-export default useValidatePassword;
+export const useValidatePass = (form: any, field: AuthPassFields) => {
+  const {
+    fieldState,
+    handleOnInput,
+    toggleShowPass,
+    validatePassword,
+    isValidatePassword,
+  } = useValidatePassword(form, field);
+
+  return {
+    passFieldState: fieldState,
+    handlePassInput: handleOnInput,
+    toggleShowPassInput: toggleShowPass,
+    validatePassword,
+    isValidatePassword,
+  };
+};
+
+export const useValidateConfirmPass = (form: any, field: AuthPassFields) => {
+  const { fieldState, handleOnInput, toggleShowPass } = useValidatePassword(
+    form,
+    field,
+  );
+
+  return {
+    confirmPassFieldState: fieldState,
+    handleConfirmPassInput: handleOnInput,
+    toggleShowConfirmPassInput: toggleShowPass,
+  };
+};

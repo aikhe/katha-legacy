@@ -271,7 +271,10 @@ A vault system to keep me from **completely losing my mind**. This is a simple a
     - [ ] Signup form
     - [x] Password masking
     - [x] Show/hide pass
-    - [ ] Code optimization 
+    - [x] Seperate useValidatePass hook
+    - [x] Component for pass field
+    - [ ] 
+    - [ ] Optimization 
     - [ ] Fix input getting masked when showing input bacause of masking delay
 
 - STYLING

@@ -7,9 +7,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 
 import { useAuth } from "@/hooks/useAuth";
 
-import { maskInput } from "@/util/maskInput";
-
-import { AuthPassFields, AuthType } from "@/types/auth";
+import { AuthType } from "@/types/auth";
 
 import OtpForm from "./OtpForm";
 import GoogleAuth from "./OAuth/GoogleAuth";
@@ -38,6 +36,7 @@ import ArrowDownLeft from "../Icons/AuthForm/ArrowDownLeft";
 import { Eye, EyeOff } from "lucide-react";
 
 import styles from "./index.module.css";
+import useValidatePassword from "@/hooks/useValidatePassword";
 
 const FormSchema = z
   .object({
@@ -54,15 +53,6 @@ type AuthFormProp = { authType: AuthType };
 
 const AuthForm: FC<AuthFormProp> = ({ authType }) => {
   const [isVerifying, setIsVerifying] = useState(false);
-  const [passState, setPassState] = useState({
-    fieldArray: [] as string[],
-    showPlainText: false,
-  });
-  const [confirmPassState, setConfirmPassState] = useState({
-    fieldArray: [] as string[],
-    showPlainText: false,
-  });
-  const [validatePassword, isValidatePassword] = useState(false);
 
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
@@ -73,80 +63,17 @@ const AuthForm: FC<AuthFormProp> = ({ authType }) => {
     },
   });
 
-  useEffect(() => {
-    const toggleFieldDisplay = (
-      fieldId: string,
-      fieldArray: string[],
-      showPlainText: boolean,
-    ) => {
-      const field = document.getElementById(fieldId) as HTMLInputElement;
-      if (field) {
-        field.value = showPlainText
-          ? fieldArray.join("")
-          : "•".repeat(fieldArray.length);
-      }
-    };
-
-    toggleFieldDisplay(
-      "pass-field",
-      passState.fieldArray,
-      passState.showPlainText,
-    );
-    toggleFieldDisplay(
-      "confirm-pass-field",
-      confirmPassState.fieldArray,
-      confirmPassState.showPlainText,
-    );
-  }, [passState.showPlainText, confirmPassState.showPlainText]);
-
   const { error, isPending, handleAuth } = useAuth(authType);
 
-  const handlePassInput = (e: any) => {
-    const updatedArray = maskInput(
-      e,
-      passState.fieldArray,
-      passState.showPlainText,
-    );
-    setPassState((prev) => ({ ...prev, fieldArray: updatedArray }));
-
-    console.log("pass array:", passState.fieldArray);
-    form.setValue("password", updatedArray.join(""), { shouldValidate: true });
-
-    if (validatePassword) {
-      form.setValue("confirmPassword", confirmPassState.fieldArray.join(""), {
-        shouldValidate: true,
-      });
-    }
-  };
-
-  const handleConfirmPassInput = (e: any) => {
-    const updatedArray = maskInput(
-      e,
-      confirmPassState.fieldArray,
-      confirmPassState.showPlainText,
-    );
-    setConfirmPassState((prev) => ({ ...prev, fieldArray: updatedArray }));
-
-    console.log("confirm pass array:", confirmPassState.fieldArray);
-
-    form.setValue("confirmPassword", updatedArray.join(""), {
-      shouldValidate: true,
-    });
-  };
-
-  const toggleShowPass = (field: AuthPassFields) => {
-    if (field === "pass") {
-      setPassState((prev) => ({
-        ...prev,
-        showPlainText: !passState.showPlainText,
-      }));
-    } else {
-      setConfirmPassState((prev) => ({
-        ...prev,
-        showPlainText: !confirmPassState.showPlainText,
-      }));
-    }
-  };
+  const {
+    handlePassInput,
+    handleConfirmPassInput,
+    toggleShowPass,
+    passState,
+    confirmPassState,
+    validatePassword,
+    isValidatePassword,
+  } = useValidatePassword(form);
 
   const onSubmit = (data: z.infer<typeof FormSchema>) => {
     handleAuth(data.email, passState.fieldArray.join(""));

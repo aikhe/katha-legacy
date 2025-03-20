@@ -11,7 +11,7 @@ A vault system to keep me from **completely losing my mind**. This is a simple a
 - React
 - Typescript
 - Tailwind & Sass
-- Motion & React three fiber
+- Motion & Lenis scroll & React three fiber
 - Shadcn
 - Mailjet
 

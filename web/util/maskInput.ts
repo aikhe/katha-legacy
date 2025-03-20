@@ -1,5 +1,5 @@
-export const maskInput = (e: any, inputArray: any, showPlainText?: boolean) => {
-  const numAdded = e.target.value.length - inputArray.length;
+export const maskInput = (e: any, fieldArray: any, showPlainText?: boolean) => {
+  const numAdded = e.target.value.length - fieldArray.length;
   console.log("numAdded", numAdded);
 
   if (numAdded > 0) {
@@ -12,7 +12,7 @@ export const maskInput = (e: any, inputArray: any, showPlainText?: boolean) => {
       `${e.target.selectionStart - numAdded}, ${e.target.selectionStart}`,
     );
 
-    inputArray.splice(e.target.selectionStart - numAdded, 0, ...charsAdded);
+    fieldArray.splice(e.target.selectionStart - numAdded, 0, ...charsAdded);
 
     if (!showPlainText) {
       setTimeout(() => {
@@ -24,10 +24,10 @@ export const maskInput = (e: any, inputArray: any, showPlainText?: boolean) => {
       }, 500);
     }
   } else if (numAdded < 0) {
-    inputArray.splice(e.target.selectionStart, Math.abs(numAdded));
+    fieldArray.splice(e.target.selectionStart, Math.abs(numAdded));
   }
-  console.log(inputArray);
-  console.log(inputArray.join(""));
+  console.log(fieldArray);
+  console.log(fieldArray.join(""));
 
-  return inputArray;
+  return fieldArray;
 };

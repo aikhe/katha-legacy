@@ -30,7 +30,6 @@ import {
 } from "@/components/ui/card";
 import { Button } from "../ui/button";
 import { Input } from "../ui/input";
-import Email from "../Icons/AuthForm/Email";
 import ArrowDownLeft from "../Icons/AuthForm/ArrowDownLeft";
 
 import styles from "./index.module.css";
@@ -38,7 +37,7 @@ import {
   useValidateConfirmPass,
   useValidateEmail,
   useValidatePass,
-} from "@/hooks/useValidatePassword";
+} from "@/hooks/useValidateInput";
 import AuthField from "./AuthField";
 
 const FormSchema = z
@@ -120,26 +119,11 @@ const AuthForm: FC<AuthFormProp> = ({ authType }) => {
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)}>
             <div className={styles.formFieldContainer}>
-              <FormField
-                control={form.control}
-                name="email"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel className={styles.formLabel}>Email</FormLabel>
-
-                    <FormControl className={styles.formControl}>
-                      <div className={styles.inputContainer}>
-                        <Email className={styles.inputIcon} />
-                        <Input
-                          onInput={(e) => handleEmailInput(e)}
-                          className={styles.inputField}
-                        />
-                      </div>
-                    </FormControl>
-
-                    <FormMessage />
-                  </FormItem>
-                )}
+              <AuthField
+                label="Email"
+                form={form}
+                field="email"
+                handleInput={handleEmailInput}
               />
 
               <AuthField
@@ -147,7 +131,7 @@ const AuthForm: FC<AuthFormProp> = ({ authType }) => {
                 form={form}
                 field="password"
                 handleInput={handlePassInput}
-                toggleShowPass={toggleShowPassInput}
+                toggleShowInput={toggleShowPassInput}
                 fieldState={passFieldState}
               />
 
@@ -156,7 +140,7 @@ const AuthForm: FC<AuthFormProp> = ({ authType }) => {
                 form={form}
                 field="confirmPassword"
                 handleInput={handleConfirmPassInput}
-                toggleShowPass={toggleShowConfirmPassInput}
+                toggleShowInput={toggleShowConfirmPassInput}
                 fieldState={confirmPassFieldState}
               />
 

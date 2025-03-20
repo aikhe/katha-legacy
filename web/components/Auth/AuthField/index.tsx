@@ -8,10 +8,12 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "../../ui/input";
+import Email from "../../Icons/AuthForm/Email";
 import Lock from "../../Icons/AuthForm/Lock";
 import { Eye, EyeOff } from "lucide-react";
 
 import styles from "../index.module.css";
+
 import { AuthPassFields } from "@/types/auth";
 
 type AuthFieldProps = {
@@ -19,8 +21,8 @@ type AuthFieldProps = {
   form: any;
   field: "email" | AuthPassFields;
   handleInput: any;
-  toggleShowPass: any;
-  fieldState: any;
+  toggleShowInput?: any;
+  fieldState?: any;
 };
 
 const AuthField: FC<AuthFieldProps> = ({
@@ -28,7 +30,7 @@ const AuthField: FC<AuthFieldProps> = ({
   form,
   field,
   handleInput,
-  toggleShowPass,
+  toggleShowInput,
   fieldState,
 }) => {
   return (
@@ -41,25 +43,31 @@ const AuthField: FC<AuthFieldProps> = ({
 
           <FormControl className={styles.formControl}>
             <div className={styles.inputContainer}>
-              <Lock className={styles.inputIcon} />
+              {field === "email" ? (
+                <Email className={styles.inputIcon} />
+              ) : (
+                <Lock className={styles.inputIcon} />
+              )}
               <Input
-                id={field}
+                id={field ?? ""}
                 onInput={(e) => {
                   handleInput(e);
                 }}
                 className={styles.inputField}
               />
-              <button
-                type="button"
-                onClick={() => toggleShowPass(field)}
-                className={styles.inputPasswordReveal}
-              >
-                {fieldState.showPlainText ? (
-                  <EyeOff size={16} color="#98A2B3" />
-                ) : (
-                  <Eye size={16} color="#98A2B3" />
-                )}
-              </button>
+              {field !== "email" && (
+                <button
+                  type="button"
+                  onClick={() => toggleShowInput(field)}
+                  className={styles.inputPasswordReveal}
+                >
+                  {fieldState.showPlainText ? (
+                    <EyeOff size={16} color="#98A2B3" />
+                  ) : (
+                    <Eye size={16} color="#98A2B3" />
+                  )}
+                </button>
+              )}
             </div>
           </FormControl>
 

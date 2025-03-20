@@ -266,7 +266,9 @@ A vault system to keep me from **completely losing my mind**. This is a simple a
     - [ ] Login form
     - [ ] Signup form
     - [x] Password masking
-    - [ ] Show/hide pass
+    - [x] Show/hide pass
+    - [ ] Code optimization 
+    - [ ] Fix input getting masked when showing input bacause of masking delay
 
 - STYLING
 

@@ -3,13 +3,16 @@ import type { Metadata } from "next";
 import AuthProvider from "@/providers/authProvider";
 import QueryProvider from "@/providers/queryProvider";
 
-import "@/styles/globals.css";
+import { ReactScan } from "@/components/ReactScan";
+
 import {
   dmSans,
   geistMono,
   geistSans,
   helveticaNeue,
 } from "@/styles/additional-styles/fonts";
+
+import "@/styles/globals.css";
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -23,6 +26,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
+      <ReactScan />
       <body
         className={`${geistSans.variable} ${helveticaNeue.variable} ${dmSans.variable} ${geistMono.variable} antialiased`}
       >

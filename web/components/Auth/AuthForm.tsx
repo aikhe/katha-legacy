@@ -38,7 +38,6 @@ import { Eye, EyeOff } from "lucide-react";
 import { maskInput } from "@/util/maskInput";
 
 let passArray: string[] = [];
-let passShadowArray: string[] = [];
 let confirmPassArray: string[] = [];
 
 const FormSchema = z
@@ -57,19 +56,42 @@ type AuthFormProp = { authType: AuthType };
 
 const AuthForm: FC<AuthFormProp> = ({ authType }) => {
   const [isVerify, setIsVerify] = useState(false);
-  const [showPassword, setIsShowPassword] = useState(false);
+  const [showPass, setIsShowPass] = useState(false);
+  const [showConfirmPass, setIsShowConfirmPass] = useState(false);
 
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
     defaultValues: {
       email: "",
       password: "",
-      passwordShadow: "",
       confirmPassword: "",
     },
   });
 
+  useEffect(() => {
+    const passInput =
+      (document.getElementById("passInput") as HTMLInputElement) || null;
+    const confirmPassInput =
+      (document.getElementById("confirmPassInput") as HTMLInputElement) || null;
+
+    showPass
+      ? (passInput.value = passArray.join(""))
+      : (passInput.value = "•".repeat(passArray.length));
+
+    showConfirmPass
+      ? (confirmPassInput.value = confirmPassArray.join(""))
+      : (confirmPassInput.value = "•".repeat(confirmPassArray.length));
+  }, [showPass, showConfirmPass]);
+
   const { error, isPending, handleAuth } = useAuth(authType);
+
+  const handlePassInput = (e: any) => {
+    const updatedArray = maskInput(e, passArray, showPass);
+    passArray = updatedArray;
+
+    console.log("pass array:", passArray);
+    form.setValue("password", passArray.join(""), { shouldValidate: true });
+  };
 
   const onSubmit = (data: z.infer<typeof FormSchema>) => {
     handleAuth(data.email, passArray.join());
@@ -78,216 +100,177 @@ const AuthForm: FC<AuthFormProp> = ({ authType }) => {
     }
   };
 
-  useEffect(() => {
-    const passInput =
-      (document.getElementById("passInput") as HTMLInputElement) || null;
-
-    if (showPassword) {
-      passInput.value = passArray.join("");
-    } else {
-      passInput.value = "•".repeat(passArray.length);
-    }
-  }, [showPassword]);
+  if (isVerify && !isPending && !error) {
+    return <OtpForm />;
+  }
 
   return (
-    <>
-      {isVerify && !isPending && !error ? (
-        <OtpForm />
-      ) : (
-        <Card className={styles.card}>
-          <CardHeader className={styles.cardHeader}>
-            <CardTitle className={styles.cardTitle}>
-              {authType === "login" ? "Log in" : "Sign up"}
-            </CardTitle>
-            <CardDescription className={styles.cardDescription}>
-              {authType === "login" ? (
-                <p>Enter your details below to sign into your account.</p>
-              ) : (
-                <p>
-                  Already have an account?{" "}
-                  <a className={styles.cardDescriptionLink} href="/auth/login">
-                    Log in
-                  </a>
-                </p>
-              )}
-            </CardDescription>
-          </CardHeader>
+    <Card className={styles.card}>
+      <CardHeader className={styles.cardHeader}>
+        <CardTitle className={styles.cardTitle}>
+          {authType === "login" ? "Log in" : "Sign up"}
+        </CardTitle>
+        <CardDescription className={styles.cardDescription}>
+          {authType === "login" ? (
+            <p>Enter your details below to sign into your account.</p>
+          ) : (
+            <p>
+              Already have an account?{" "}
+              <a className={styles.cardDescriptionLink} href="/auth/login">
+                Log in
+              </a>
+            </p>
+          )}
+        </CardDescription>
+      </CardHeader>
 
-          <CardContent className={styles.cardContent}>
-            <Form {...form}>
-              <form onSubmit={form.handleSubmit(onSubmit)}>
-                <div className={styles.formFieldContainer}>
-                  <FormField
-                    control={form.control}
-                    name="email"
-                    render={({ field }) => (
-                      <FormItem>
-                        <FormLabel className={styles.formLabel}>
-                          Email
-                        </FormLabel>
+      <CardContent className={styles.cardContent}>
+        <Form {...form}>
+          <form onSubmit={form.handleSubmit(onSubmit)}>
+            <div className={styles.formFieldContainer}>
+              <FormField
+                control={form.control}
+                name="email"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel className={styles.formLabel}>Email</FormLabel>
 
-                        <FormControl className={styles.formControl}>
-                          <div className={styles.inputContainer}>
-                            <Email className={styles.inputIcon} />
-                            <Input className={styles.inputField} {...field} />
-                          </div>
-                        </FormControl>
+                    <FormControl className={styles.formControl}>
+                      <div className={styles.inputContainer}>
+                        <Email className={styles.inputIcon} />
+                        <Input className={styles.inputField} {...field} />
+                      </div>
+                    </FormControl>
 
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
 
-                  <FormField
-                    control={form.control}
-                    name="password"
-                    render={() => (
-                      <FormItem>
-                        <FormLabel className={styles.formLabel}>
-                          Password
-                        </FormLabel>
+              <FormField
+                control={form.control}
+                name="password"
+                render={() => (
+                  <FormItem>
+                    <FormLabel className={styles.formLabel}>Password</FormLabel>
 
-                        <FormControl className={styles.formControl}>
-                          <div className={styles.inputContainer}>
-                            <Lock className={styles.inputIcon} />
-                            <Input
-                              id="passInput"
-                              onInput={(e) => {
-                                if (showPassword === false) {
-                                  const updatedArray = maskInput(e, passArray);
-                                  passArray = updatedArray;
+                    <FormControl className={styles.formControl}>
+                      <div className={styles.inputContainer}>
+                        <Lock className={styles.inputIcon} />
+                        <Input
+                          id="passInput"
+                          onInput={(e) => {
+                            handlePassInput(e);
+                          }}
+                          className={styles.inputField}
+                        />
+                        <button
+                          type="button"
+                          onClick={() => setIsShowPass(!showPass)}
+                          className={styles.inputPasswordReveal}
+                        >
+                          {showPass ? (
+                            <EyeOff size={16} color="#98A2B3" />
+                          ) : (
+                            <Eye size={16} color="#98A2B3" />
+                          )}
+                        </button>
+                      </div>
+                    </FormControl>
 
-                                  console.log("pass array:", passArray);
-                                } else {
-                                  const target = e.target as HTMLInputElement;
-                                  const numAdded =
-                                    target.value.length - passArray.length;
-                                  console.log("numAdded", numAdded);
+                    <FormMessage />
 
-                                  if (numAdded > 0) {
-                                    const charsAdded = target.value.slice(
-                                      target.selectionStart! - numAdded,
-                                      target.selectionStart!,
-                                    );
-                                    console.log("CharsAdded", charsAdded);
-                                    console.log(
-                                      `${target.selectionStart! - numAdded}, ${target.selectionStart!}`,
-                                    );
+                    <li className={styles.passwordRule}>
+                      Minimum 8 characters long
+                    </li>
+                  </FormItem>
+                )}
+              />
 
-                                    passArray.splice(
-                                      target.selectionStart! - numAdded,
-                                      0,
-                                      ...charsAdded.split(""),
-                                    );
-                                  } else if (numAdded < 0) {
-                                    passArray.splice(
-                                      target.selectionStart!,
-                                      numAdded * -1,
-                                    );
-                                  }
+              <FormField
+                control={form.control}
+                name="confirmPassword"
+                render={() => (
+                  <FormItem>
+                    <FormLabel className={styles.formLabel}>
+                      Confirm Password
+                    </FormLabel>
 
-                                  console.log(passArray);
-                                  console.log(passArray.join(""));
-                                }
-                              }}
-                              className={styles.inputField}
-                              {...form.register("password")}
-                            />
-                            <button
-                              type="button"
-                              onClick={() => setIsShowPassword(!showPassword)}
-                              className={styles.inputPasswordReveal}
-                            >
-                              <Eye size={16} color="#98A2B3" />
-                            </button>
-                          </div>
-                        </FormControl>
+                    <FormControl className={styles.formControl}>
+                      <div className={styles.inputContainer}>
+                        <Lock className={styles.inputIcon} />
+                        <Input
+                          id="confirmPassInput"
+                          onInput={(e) => {
+                            const updatedArray = maskInput(
+                              e,
+                              confirmPassArray,
+                              showConfirmPass,
+                            );
+                            confirmPassArray = updatedArray;
 
-                        <FormMessage />
+                            console.log(
+                              "confirm pass array:",
+                              confirmPassArray,
+                            );
+                          }}
+                          className={styles.inputField}
+                          {...form.register("confirmPassword")}
+                        />
+                        <button
+                          type="button"
+                          onClick={() => setIsShowConfirmPass(!showConfirmPass)}
+                          className={styles.inputPasswordReveal}
+                        >
+                          {showConfirmPass ? (
+                            <EyeOff size={16} color="#98A2B3" />
+                          ) : (
+                            <Eye size={16} color="#98A2B3" />
+                          )}
+                        </button>
+                      </div>
+                    </FormControl>
 
-                        <li className={styles.passwordRule}>
-                          Minimum 8 characters long
-                        </li>
-                      </FormItem>
-                    )}
-                  />
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
 
-                  <FormField
-                    control={form.control}
-                    name="confirmPassword"
-                    render={() => (
-                      <FormItem>
-                        <FormLabel className={styles.formLabel}>
-                          Confirm Password
-                        </FormLabel>
-
-                        <FormControl className={styles.formControl}>
-                          <div className={styles.inputContainer}>
-                            <Lock className={styles.inputIcon} />
-                            <Input
-                              onInput={(e) => {
-                                const updatedArray = maskInput(
-                                  e,
-                                  confirmPassArray,
-                                );
-                                confirmPassArray = updatedArray;
-
-                                console.log(
-                                  "confirm pass array:",
-                                  confirmPassArray,
-                                );
-                              }}
-                              className={styles.inputField}
-                              {...form.register("confirmPassword")}
-                            />
-                            <button className={styles.inputPasswordReveal}>
-                              <EyeOff size={16} color="#98A2B3" />
-                            </button>
-                          </div>
-                        </FormControl>
-
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
-
-                  {error && <p style={{ color: "red" }}>{error}</p>}
-                </div>
-
-                <Button
-                  onClick={() => console.log(passArray, confirmPassArray)}
-                  className={styles.formButton}
-                  type="submit"
-                >
-                  {isPending
-                    ? authType === "login"
-                      ? "Logging in..."
-                      : "Signing up..."
-                    : authType === "login"
-                      ? "Log in"
-                      : "Create account"}
-                  <div className={styles.buttonIconWrapper}>
-                    <ArrowDownLeft className={styles.buttonIcon} />
-                  </div>
-                </Button>
-              </form>
-            </Form>
-
-            <p className={styles.continueWithOAuth}>Or continue with</p>
-
-            <div className={styles.oauthContainer}>
-              <GoogleAuth />
-              <GithubAuth />
+              {error && <p style={{ color: "red" }}>{error}</p>}
             </div>
-          </CardContent>
 
-          <CardFooter className={styles.cardFooter}>
-            <span>Katha @2025</span>
-            <p>A vault system to keep me sane.</p>
-          </CardFooter>
-        </Card>
-      )}
-    </>
+            <Button
+              onClick={() => console.log(passArray, confirmPassArray)}
+              className={styles.formButton}
+              type="submit"
+            >
+              {isPending
+                ? authType === "login"
+                  ? "Logging in..."
+                  : "Signing up..."
+                : authType === "login"
+                  ? "Log in"
+                  : "Create account"}
+              <div className={styles.buttonIconWrapper}>
+                <ArrowDownLeft className={styles.buttonIcon} />
+              </div>
+            </Button>
+          </form>
+        </Form>
+
+        <p className={styles.continueWithOAuth}>Or continue with</p>
+
+        <div className={styles.oauthContainer}>
+          <GoogleAuth />
+          <GithubAuth />
+        </div>
+      </CardContent>
+
+      <CardFooter className={styles.cardFooter}>
+        <span>Katha @2025</span>
+        <p>A vault system to keep me sane.</p>
+      </CardFooter>
+    </Card>
   );
 };
 

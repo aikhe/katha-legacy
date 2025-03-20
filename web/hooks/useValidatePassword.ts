@@ -65,6 +65,16 @@ const useValidatePassword = (form: any, field: AuthPassFields) => {
   };
 };
 
+export const useValidateEmail = (form: any) => {
+  const handleEmailInput = (e: any) => {
+    form.setValue("email", e.target.value, {
+      shouldValidate: true,
+    });
+  };
+
+  return handleEmailInput;
+};
+
 export const useValidatePass = (form: any, field: AuthPassFields) => {
   const {
     fieldState,

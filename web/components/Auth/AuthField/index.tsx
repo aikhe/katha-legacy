@@ -17,7 +17,7 @@ import { AuthPassFields } from "@/types/auth";
 type AuthFieldProps = {
   label: string;
   form: any;
-  field: AuthPassFields;
+  field: "email" | AuthPassFields;
   handleInput: any;
   toggleShowPass: any;
   fieldState: any;

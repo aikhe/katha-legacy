@@ -36,6 +36,7 @@ import ArrowDownLeft from "../Icons/AuthForm/ArrowDownLeft";
 import styles from "./index.module.css";
 import {
   useValidateConfirmPass,
+  useValidateEmail,
   useValidatePass,
 } from "@/hooks/useValidatePassword";
 import AuthField from "./AuthField";
@@ -66,6 +67,8 @@ const AuthForm: FC<AuthFormProp> = ({ authType }) => {
   });
 
   const { error, isPending, handleAuth } = useAuth(authType);
+
+  const handleEmailInput = useValidateEmail(form);
 
   const {
     passFieldState,
@@ -127,7 +130,10 @@ const AuthForm: FC<AuthFormProp> = ({ authType }) => {
                     <FormControl className={styles.formControl}>
                       <div className={styles.inputContainer}>
                         <Email className={styles.inputIcon} />
-                        <Input className={styles.inputField} {...field} />
+                        <Input
+                          onInput={(e) => handleEmailInput(e)}
+                          className={styles.inputField}
+                        />
                       </div>
                     </FormControl>
 

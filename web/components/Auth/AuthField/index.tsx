@@ -1,4 +1,5 @@
 import { FC } from "react";
+import { Control, FieldValues, Path } from "react-hook-form";
 
 import {
   FormControl,
@@ -14,18 +15,20 @@ import { Eye, EyeOff } from "lucide-react";
 
 import styles from "../index.module.css";
 
-import { AuthPassFields } from "@/types/auth";
-
-type AuthFieldProps = {
+type AuthFieldProps<T extends FieldValues> = {
   label: string;
-  form: any;
-  field: "email" | AuthPassFields;
-  handleInput: any;
-  toggleShowInput?: any;
-  fieldState?: any;
+  form: {
+    control: Control<T>;
+  };
+  field: Path<T>;
+  handleInput: (e: React.FormEvent<HTMLInputElement>) => void;
+  toggleShowInput?: (field: Path<T>) => void;
+  fieldState?: {
+    showPlainText: boolean;
+  };
 };
 
-const AuthField: FC<AuthFieldProps> = ({
+const AuthField: FC<AuthFieldProps<any>> = ({
   label,
   form,
   field,
@@ -48,6 +51,7 @@ const AuthField: FC<AuthFieldProps> = ({
               ) : (
                 <Lock className={styles.inputIcon} />
               )}
+
               <Input
                 id={field ?? ""}
                 onInput={(e) => {
@@ -55,13 +59,14 @@ const AuthField: FC<AuthFieldProps> = ({
                 }}
                 className={styles.inputField}
               />
-              {field !== "email" && (
+
+              {field !== "email" && toggleShowInput && (
                 <button
                   type="button"
                   onClick={() => toggleShowInput(field)}
                   className={styles.inputPasswordReveal}
                 >
-                  {fieldState.showPlainText ? (
+                  {fieldState?.showPlainText ? (
                     <EyeOff size={16} color="#98A2B3" />
                   ) : (
                     <Eye size={16} color="#98A2B3" />

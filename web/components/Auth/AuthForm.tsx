@@ -6,20 +6,19 @@ import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 
 import { useAuth } from "@/hooks/useAuth";
+import {
+  useValidateConfirmPass,
+  useValidateEmail,
+  useValidatePass,
+} from "@/hooks/useValidateInput";
 
 import { AuthType } from "@/types/auth";
 
-import OtpForm from "./OtpForm";
+import AuthField from "./AuthField";
 import GoogleAuth from "./OAuth/GoogleAuth";
 import GithubAuth from "./OAuth/GithubAuth";
-import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from "@/components/ui/form";
+import OtpForm from "./OtpForm";
+import { Form } from "@/components/ui/form";
 import {
   Card,
   CardContent,
@@ -29,16 +28,9 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { Button } from "../ui/button";
-import { Input } from "../ui/input";
 import ArrowDownLeft from "../Icons/AuthForm/ArrowDownLeft";
 
 import styles from "./index.module.css";
-import {
-  useValidateConfirmPass,
-  useValidateEmail,
-  useValidatePass,
-} from "@/hooks/useValidateInput";
-import AuthField from "./AuthField";
 
 const FormSchema = z
   .object({
@@ -101,6 +93,7 @@ const AuthForm: FC<AuthFormProp> = ({ authType }) => {
         <CardTitle className={styles.cardTitle}>
           {authType === "login" ? "Log in" : "Sign up"}
         </CardTitle>
+
         <CardDescription className={styles.cardDescription}>
           {authType === "login" ? (
             <p>Enter your details below to sign into your account.</p>

@@ -44,7 +44,6 @@ const FormSchema = z
   .object({
     email: z.string().email({ message: "Invalid Email Address" }),
     password: z.string().min(8, { message: "Password is too short" }),
-    passwordShadow: z.string().min(8, { message: "Password is too short" }),
     confirmPassword: z.string().min(8, { message: "Password is too short" }),
   })
   .refine(() => passArray.join("") === confirmPassArray.join(""), {
@@ -93,6 +92,16 @@ const AuthForm: FC<AuthFormProp> = ({ authType }) => {
     form.setValue("password", passArray.join(""), { shouldValidate: true });
   };
 
+  const handleConfirmPassInput = (e: any) => {
+    const updatedArray = maskInput(e, confirmPassArray, showConfirmPass);
+    confirmPassArray = updatedArray;
+
+    console.log("confirm pass array:", confirmPassArray);
+    form.setValue("confirmPassword", confirmPassArray.join(""), {
+      shouldValidate: true,
+    });
+  };
+
   const onSubmit = (data: z.infer<typeof FormSchema>) => {
     handleAuth(data.email, passArray.join());
     if (authType === "signup") {
@@ -100,177 +109,174 @@ const AuthForm: FC<AuthFormProp> = ({ authType }) => {
     }
   };
 
-  if (isVerify && !isPending && !error) {
-    return <OtpForm />;
-  }
-
   return (
-    <Card className={styles.card}>
-      <CardHeader className={styles.cardHeader}>
-        <CardTitle className={styles.cardTitle}>
-          {authType === "login" ? "Log in" : "Sign up"}
-        </CardTitle>
-        <CardDescription className={styles.cardDescription}>
-          {authType === "login" ? (
-            <p>Enter your details below to sign into your account.</p>
-          ) : (
-            <p>
-              Already have an account?{" "}
-              <a className={styles.cardDescriptionLink} href="/auth/login">
-                Log in
-              </a>
-            </p>
-          )}
-        </CardDescription>
-      </CardHeader>
+    <>
+      {isVerify && !isPending && !error ? (
+        <OtpForm />
+      ) : (
+        <Card className={styles.card}>
+          <CardHeader className={styles.cardHeader}>
+            <CardTitle className={styles.cardTitle}>
+              {authType === "login" ? "Log in" : "Sign up"}
+            </CardTitle>
+            <CardDescription className={styles.cardDescription}>
+              {authType === "login" ? (
+                <p>Enter your details below to sign into your account.</p>
+              ) : (
+                <p>
+                  Already have an account?{" "}
+                  <a className={styles.cardDescriptionLink} href="/auth/login">
+                    Log in
+                  </a>
+                </p>
+              )}
+            </CardDescription>
+          </CardHeader>
 
-      <CardContent className={styles.cardContent}>
-        <Form {...form}>
-          <form onSubmit={form.handleSubmit(onSubmit)}>
-            <div className={styles.formFieldContainer}>
-              <FormField
-                control={form.control}
-                name="email"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel className={styles.formLabel}>Email</FormLabel>
+          <CardContent className={styles.cardContent}>
+            <Form {...form}>
+              <form onSubmit={form.handleSubmit(onSubmit)}>
+                <div className={styles.formFieldContainer}>
+                  <FormField
+                    control={form.control}
+                    name="email"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel className={styles.formLabel}>
+                          Email
+                        </FormLabel>
 
-                    <FormControl className={styles.formControl}>
-                      <div className={styles.inputContainer}>
-                        <Email className={styles.inputIcon} />
-                        <Input className={styles.inputField} {...field} />
-                      </div>
-                    </FormControl>
+                        <FormControl className={styles.formControl}>
+                          <div className={styles.inputContainer}>
+                            <Email className={styles.inputIcon} />
+                            <Input className={styles.inputField} {...field} />
+                          </div>
+                        </FormControl>
 
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
 
-              <FormField
-                control={form.control}
-                name="password"
-                render={() => (
-                  <FormItem>
-                    <FormLabel className={styles.formLabel}>Password</FormLabel>
+                  <FormField
+                    control={form.control}
+                    name="password"
+                    render={() => (
+                      <FormItem>
+                        <FormLabel className={styles.formLabel}>
+                          Password
+                        </FormLabel>
 
-                    <FormControl className={styles.formControl}>
-                      <div className={styles.inputContainer}>
-                        <Lock className={styles.inputIcon} />
-                        <Input
-                          id="passInput"
-                          onInput={(e) => {
-                            handlePassInput(e);
-                          }}
-                          className={styles.inputField}
-                        />
-                        <button
-                          type="button"
-                          onClick={() => setIsShowPass(!showPass)}
-                          className={styles.inputPasswordReveal}
-                        >
-                          {showPass ? (
-                            <EyeOff size={16} color="#98A2B3" />
-                          ) : (
-                            <Eye size={16} color="#98A2B3" />
-                          )}
-                        </button>
-                      </div>
-                    </FormControl>
+                        <FormControl className={styles.formControl}>
+                          <div className={styles.inputContainer}>
+                            <Lock className={styles.inputIcon} />
+                            <Input
+                              id="passInput"
+                              onInput={(e) => {
+                                handlePassInput(e);
+                              }}
+                              className={styles.inputField}
+                            />
+                            <button
+                              type="button"
+                              onClick={() => setIsShowPass(!showPass)}
+                              className={styles.inputPasswordReveal}
+                            >
+                              {showPass ? (
+                                <EyeOff size={16} color="#98A2B3" />
+                              ) : (
+                                <Eye size={16} color="#98A2B3" />
+                              )}
+                            </button>
+                          </div>
+                        </FormControl>
 
-                    <FormMessage />
+                        <FormMessage />
 
-                    <li className={styles.passwordRule}>
-                      Minimum 8 characters long
-                    </li>
-                  </FormItem>
-                )}
-              />
+                        <li className={styles.passwordRule}>
+                          Minimum 8 characters long
+                        </li>
+                      </FormItem>
+                    )}
+                  />
 
-              <FormField
-                control={form.control}
-                name="confirmPassword"
-                render={() => (
-                  <FormItem>
-                    <FormLabel className={styles.formLabel}>
-                      Confirm Password
-                    </FormLabel>
+                  <FormField
+                    control={form.control}
+                    name="confirmPassword"
+                    render={() => (
+                      <FormItem>
+                        <FormLabel className={styles.formLabel}>
+                          Confirm Password
+                        </FormLabel>
 
-                    <FormControl className={styles.formControl}>
-                      <div className={styles.inputContainer}>
-                        <Lock className={styles.inputIcon} />
-                        <Input
-                          id="confirmPassInput"
-                          onInput={(e) => {
-                            const updatedArray = maskInput(
-                              e,
-                              confirmPassArray,
-                              showConfirmPass,
-                            );
-                            confirmPassArray = updatedArray;
+                        <FormControl className={styles.formControl}>
+                          <div className={styles.inputContainer}>
+                            <Lock className={styles.inputIcon} />
+                            <Input
+                              id="confirmPassInput"
+                              onInput={(e) => {
+                                handleConfirmPassInput(e);
+                              }}
+                              className={styles.inputField}
+                            />
+                            <button
+                              type="button"
+                              onClick={() =>
+                                setIsShowConfirmPass(!showConfirmPass)
+                              }
+                              className={styles.inputPasswordReveal}
+                            >
+                              {showConfirmPass ? (
+                                <EyeOff size={16} color="#98A2B3" />
+                              ) : (
+                                <Eye size={16} color="#98A2B3" />
+                              )}
+                            </button>
+                          </div>
+                        </FormControl>
 
-                            console.log(
-                              "confirm pass array:",
-                              confirmPassArray,
-                            );
-                          }}
-                          className={styles.inputField}
-                          {...form.register("confirmPassword")}
-                        />
-                        <button
-                          type="button"
-                          onClick={() => setIsShowConfirmPass(!showConfirmPass)}
-                          className={styles.inputPasswordReveal}
-                        >
-                          {showConfirmPass ? (
-                            <EyeOff size={16} color="#98A2B3" />
-                          ) : (
-                            <Eye size={16} color="#98A2B3" />
-                          )}
-                        </button>
-                      </div>
-                    </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
 
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
+                  {error && <p style={{ color: "red" }}>{error}</p>}
+                </div>
 
-              {error && <p style={{ color: "red" }}>{error}</p>}
+                <Button
+                  onClick={() => console.log(passArray, confirmPassArray)}
+                  className={styles.formButton}
+                  type="submit"
+                >
+                  {isPending
+                    ? authType === "login"
+                      ? "Logging in..."
+                      : "Signing up..."
+                    : authType === "login"
+                      ? "Log in"
+                      : "Create account"}
+                  <div className={styles.buttonIconWrapper}>
+                    <ArrowDownLeft className={styles.buttonIcon} />
+                  </div>
+                </Button>
+              </form>
+            </Form>
+
+            <p className={styles.continueWithOAuth}>Or continue with</p>
+
+            <div className={styles.oauthContainer}>
+              <GoogleAuth />
+              <GithubAuth />
             </div>
+          </CardContent>
 
-            <Button
-              onClick={() => console.log(passArray, confirmPassArray)}
-              className={styles.formButton}
-              type="submit"
-            >
-              {isPending
-                ? authType === "login"
-                  ? "Logging in..."
-                  : "Signing up..."
-                : authType === "login"
-                  ? "Log in"
-                  : "Create account"}
-              <div className={styles.buttonIconWrapper}>
-                <ArrowDownLeft className={styles.buttonIcon} />
-              </div>
-            </Button>
-          </form>
-        </Form>
-
-        <p className={styles.continueWithOAuth}>Or continue with</p>
-
-        <div className={styles.oauthContainer}>
-          <GoogleAuth />
-          <GithubAuth />
-        </div>
-      </CardContent>
-
-      <CardFooter className={styles.cardFooter}>
-        <span>Katha @2025</span>
-        <p>A vault system to keep me sane.</p>
-      </CardFooter>
-    </Card>
+          <CardFooter className={styles.cardFooter}>
+            <span>Katha @2025</span>
+            <p>A vault system to keep me sane.</p>
+          </CardFooter>
+        </Card>
+      )}
+    </>
   );
 };
 

@@ -1,6 +1,6 @@
 "use client";
 
-import { FC, useEffect, useState } from "react";
+import { FC, useState } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -31,15 +31,14 @@ import {
 import { Button } from "../ui/button";
 import { Input } from "../ui/input";
 import Email from "../Icons/AuthForm/Email";
-import Lock from "../Icons/AuthForm/Lock";
 import ArrowDownLeft from "../Icons/AuthForm/ArrowDownLeft";
-import { Eye, EyeOff } from "lucide-react";
 
 import styles from "./index.module.css";
 import {
   useValidateConfirmPass,
   useValidatePass,
 } from "@/hooks/useValidatePassword";
+import AuthField from "./AuthField";
 
 const FormSchema = z
   .object({
@@ -137,82 +136,22 @@ const AuthForm: FC<AuthFormProp> = ({ authType }) => {
                 )}
               />
 
-              <FormField
-                control={form.control}
-                name="password"
-                render={() => (
-                  <FormItem>
-                    <FormLabel className={styles.formLabel}>Password</FormLabel>
-
-                    <FormControl className={styles.formControl}>
-                      <div className={styles.inputContainer}>
-                        <Lock className={styles.inputIcon} />
-                        <Input
-                          id="password"
-                          onInput={(e) => {
-                            handlePassInput(e);
-                          }}
-                          className={styles.inputField}
-                        />
-                        <button
-                          type="button"
-                          onClick={() => toggleShowPassInput()}
-                          className={styles.inputPasswordReveal}
-                        >
-                          {passFieldState.showPlainText ? (
-                            <EyeOff size={16} color="#98A2B3" />
-                          ) : (
-                            <Eye size={16} color="#98A2B3" />
-                          )}
-                        </button>
-                      </div>
-                    </FormControl>
-
-                    <FormMessage />
-
-                    <li className={styles.passwordRule}>
-                      Minimum 8 characters long
-                    </li>
-                  </FormItem>
-                )}
+              <AuthField
+                label="Password"
+                form={form}
+                field="password"
+                handleInput={handlePassInput}
+                toggleShowPass={toggleShowPassInput}
+                fieldState={passFieldState}
               />
 
-              <FormField
-                control={form.control}
-                name="confirmPassword"
-                render={() => (
-                  <FormItem>
-                    <FormLabel className={styles.formLabel}>
-                      Confirm Password
-                    </FormLabel>
-
-                    <FormControl className={styles.formControl}>
-                      <div className={styles.inputContainer}>
-                        <Lock className={styles.inputIcon} />
-                        <Input
-                          id="confirmPassword"
-                          onInput={(e) => {
-                            handleConfirmPassInput(e);
-                          }}
-                          className={styles.inputField}
-                        />
-                        <button
-                          type="button"
-                          onClick={() => toggleShowConfirmPassInput()}
-                          className={styles.inputPasswordReveal}
-                        >
-                          {confirmPassFieldState.showPlainText ? (
-                            <EyeOff size={16} color="#98A2B3" />
-                          ) : (
-                            <Eye size={16} color="#98A2B3" />
-                          )}
-                        </button>
-                      </div>
-                    </FormControl>
-
-                    <FormMessage />
-                  </FormItem>
-                )}
+              <AuthField
+                label="Confirm Password"
+                form={form}
+                field="confirmPassword"
+                handleInput={handleConfirmPassInput}
+                toggleShowPass={toggleShowConfirmPassInput}
+                fieldState={confirmPassFieldState}
               />
 
               {error && <p style={{ color: "red" }}>{error}</p>}

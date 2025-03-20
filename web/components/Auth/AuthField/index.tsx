@@ -65,7 +65,9 @@ const AuthField: FC<AuthFieldProps> = ({
 
           <FormMessage />
 
-          <li className={styles.passwordRule}>Minimum 8 characters long</li>
+          {field === "password" && (
+            <li className={styles.passwordRule}>Minimum 8 characters long</li>
+          )}
         </FormItem>
       )}
     />

@@ -4,6 +4,7 @@ import { AuthPassFields } from "@/types/auth";
 import {
   FieldValues,
   UseFormGetValues,
+  UseFormReturn,
   UseFormSetValue,
 } from "react-hook-form";
 
@@ -12,12 +13,18 @@ interface FormMethods {
   getValues: UseFormGetValues<FieldValues>;
 }
 
+interface FormValues {
+  email: string;
+  password: string;
+  confirmPassword: string;
+}
+
 interface FieldState {
   fieldArray: string[];
   showPlainText: boolean;
 }
 
-const useValidatePassword = (form: any, field: AuthPassFields) => {
+const useValidatePassword = <T extends FormValues>(form: UseFormReturn<T>, field: AuthPassFields) => {
   const [fieldState, setFieldState] = useState<FieldState>({
     fieldArray: [],
     showPlainText: false,
@@ -71,9 +78,9 @@ const useValidatePassword = (form: any, field: AuthPassFields) => {
   };
 };
 
-export const useValidateEmail = (form: any) => {
+export const useValidateEmail = <T extends FormValues>(form: UseFormReturn<T>) => {
   const handleEmailInput = (e: React.ChangeEvent<HTMLInputElement>) => {
-    form.setValue("email", e.target.value, {
+    form.setValue("email" as any, e.target.value as any, {
       shouldValidate: true,
     });
   };
@@ -81,7 +88,7 @@ export const useValidateEmail = (form: any) => {
   return handleEmailInput;
 };
 
-export const useValidatePass = (form: any) => {
+export const useValidatePass = <T extends FormValues>(form: UseFormReturn<T>) => {
   const [validatePassword, isValidatePassword] = useState(false);
 
   const { fieldState, handleOnInput, toggleShowPass } = useValidatePassword(
@@ -93,7 +100,7 @@ export const useValidatePass = (form: any) => {
     handleOnInput(e);
 
     if (validatePassword) {
-      form.setValue("confirmPassword", form.getValues("confirmPassword"), {
+      form.setValue("confirmPassword" as any, form.getValues("confirmPassword" as any), {
         shouldValidate: true,
       });
     }
@@ -108,7 +115,7 @@ export const useValidatePass = (form: any) => {
   };
 };
 
-export const useValidateConfirmPass = (form: any) => {
+export const useValidateConfirmPass = <T extends FormValues>(form: UseFormReturn<T>) => {
   const { fieldState, handleOnInput, toggleShowPass } = useValidatePassword(
     form,
     "confirmPassword",

@@ -67,13 +67,13 @@ const AuthForm: FC<AuthFormProp> = ({ authType }) => {
     toggleShowPassInput,
     validatePassword,
     isValidatePassword,
-  } = useValidatePass(form, "password");
+  } = useValidatePass(form);
 
   const {
     confirmPassFieldState,
     handleConfirmPassInput,
     toggleShowConfirmPassInput,
-  } = useValidateConfirmPass(form, "confirmPassword");
+  } = useValidateConfirmPass(form);
 
   const onSubmit = (data: z.infer<typeof FormSchema>) => {
     handleAuth(data.email, form.getValues("password"));

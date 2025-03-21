@@ -8,6 +8,7 @@ export const maskInput = (e: any, fieldArray: any, showPlainText?: boolean) => {
       e.target.selectionStart,
     );
     console.log("ChardAdded", charsAdded);
+
     console.log(
       `${e.target.selectionStart - numAdded}, ${e.target.selectionStart}`,
     );
@@ -23,9 +24,10 @@ export const maskInput = (e: any, fieldArray: any, showPlainText?: boolean) => {
         e.target.setSelectionRange(cursorPos, cursorPos);
       }, 500);
     }
-  } else if (numAdded < 0) {
+  } else if (numAdded <= 0) {
     fieldArray.splice(e.target.selectionStart, Math.abs(numAdded));
   }
+
   console.log(fieldArray);
   console.log(fieldArray.join(""));
 

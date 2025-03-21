@@ -272,8 +272,14 @@ A vault system to keep me from **completely losing my mind**. This is a simple a
     - [x] Password masking
     - [x] Show/hide pass
     - [x] Seperate useValidatePass hook
-    - [x] Component for pass field
-    - [ ] 
+    - [x] Standalone component for input fields
+    - [x] Better Refactor
+    - [-] Input array not updating on selection paste/input (unsolvable as no pointer when selection input and so many other edge cases)
+    - [ ] Types
+      - [x] AuthFieldProps
+      - [ ] UseValidateInput types
+      - [ ] 
+    - [ ] Fix field values resetting when getting error after submitting
     - [ ] Optimization 
     - [ ] Fix input getting masked when showing input bacause of masking delay
 

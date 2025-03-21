@@ -277,7 +277,7 @@ A vault system to keep me from **completely losing my mind**. This is a simple a
     - [-] Input array not updating on selection paste/input (unsolvable as no pointer when selection input and so many other edge cases)
     - [ ] Types
       - [x] AuthFieldProps
-      - [ ] UseValidateInput types
+      - [x] UseValidateInput types
       - [ ] 
     - [ ] Fix field values resetting when getting error after submitting
     - [ ] Optimization 

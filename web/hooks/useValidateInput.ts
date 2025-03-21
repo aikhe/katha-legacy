@@ -1,13 +1,27 @@
 import { useEffect, useState } from "react";
 import { maskInput } from "@/util/maskInput";
 import { AuthPassFields } from "@/types/auth";
+import {
+  FieldValues,
+  UseFormGetValues,
+  UseFormSetValue,
+} from "react-hook-form";
+
+interface FormMethods {
+  setValue: UseFormSetValue<FieldValues>;
+  getValues: UseFormGetValues<FieldValues>;
+}
+
+interface FieldState {
+  fieldArray: string[];
+  showPlainText: boolean;
+}
 
 const useValidatePassword = (form: any, field: AuthPassFields) => {
-  const [fieldState, setFieldState] = useState({
-    fieldArray: [] as string[],
+  const [fieldState, setFieldState] = useState<FieldState>({
+    fieldArray: [],
     showPlainText: false,
   });
-  const [validatePassword, isValidatePassword] = useState(false);
 
   useEffect(() => {
     const toggleFieldDisplay = (
@@ -26,7 +40,7 @@ const useValidatePassword = (form: any, field: AuthPassFields) => {
     toggleFieldDisplay(field, fieldState.fieldArray, fieldState.showPlainText);
   }, [fieldState.showPlainText]);
 
-  const handleOnInput = (e: any) => {
+  const handleOnInput = (e: React.FormEvent<HTMLInputElement>) => {
     const updatedArray = maskInput(
       e,
       fieldState.fieldArray,
@@ -41,12 +55,6 @@ const useValidatePassword = (form: any, field: AuthPassFields) => {
         shouldValidate: true,
       },
     );
-
-    if (validatePassword && field === "password") {
-      form.setValue("confirmPassword", form.getValues("confirmPassword"), {
-        shouldValidate: true,
-      });
-    }
   };
 
   const toggleShowPass = () => {
@@ -60,13 +68,11 @@ const useValidatePassword = (form: any, field: AuthPassFields) => {
     fieldState,
     handleOnInput,
     toggleShowPass,
-    validatePassword,
-    isValidatePassword,
   };
 };
 
 export const useValidateEmail = (form: any) => {
-  const handleEmailInput = (e: any) => {
+  const handleEmailInput = (e: React.ChangeEvent<HTMLInputElement>) => {
     form.setValue("email", e.target.value, {
       shouldValidate: true,
     });
@@ -75,28 +81,37 @@ export const useValidateEmail = (form: any) => {
   return handleEmailInput;
 };
 
-export const useValidatePass = (form: any, field: AuthPassFields) => {
-  const {
-    fieldState,
-    handleOnInput,
-    toggleShowPass,
-    validatePassword,
-    isValidatePassword,
-  } = useValidatePassword(form, field);
+export const useValidatePass = (form: any) => {
+  const [validatePassword, isValidatePassword] = useState(false);
+
+  const { fieldState, handleOnInput, toggleShowPass } = useValidatePassword(
+    form,
+    "password",
+  );
+
+  const handlePassInput = (e: React.FormEvent<HTMLInputElement>) => {
+    handleOnInput(e);
+
+    if (validatePassword) {
+      form.setValue("confirmPassword", form.getValues("confirmPassword"), {
+        shouldValidate: true,
+      });
+    }
+  };
 
   return {
     passFieldState: fieldState,
-    handlePassInput: handleOnInput,
+    handlePassInput,
     toggleShowPassInput: toggleShowPass,
     validatePassword,
     isValidatePassword,
   };
 };
 
-export const useValidateConfirmPass = (form: any, field: AuthPassFields) => {
+export const useValidateConfirmPass = (form: any) => {
   const { fieldState, handleOnInput, toggleShowPass } = useValidatePassword(
     form,
-    field,
+    "confirmPassword",
   );
 
   return {

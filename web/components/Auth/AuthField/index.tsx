@@ -18,7 +18,7 @@ import styles from "../index.module.css";
 type AuthFieldProps<T extends FieldValues> = {
   label: string;
   form: {
-    control: Control<FieldValues, T>;
+    control: Control<T>;
   };
   field: Path<T>;
   handleInput: (e: React.FormEvent<HTMLInputElement>) => void;

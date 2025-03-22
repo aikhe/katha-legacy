@@ -3,8 +3,6 @@ import { Path, PathValue, FieldValues, UseFormReturn } from "react-hook-form";
 
 import { maskInput } from "@/util/maskInput";
 
-import { AuthPassFields } from "@/types/auth";
-
 type FieldState = {
   fieldArray: string[];
   showPlainText: boolean;
@@ -12,7 +10,7 @@ type FieldState = {
 
 const useValidatePassword = <T extends FieldValues>(
   methods: UseFormReturn<T>,
-  field: AuthPassFields,
+  field: "password" | "confirmPassword",
 ) => {
   const [fieldState, setFieldState] = useState<FieldState>({
     fieldArray: [],

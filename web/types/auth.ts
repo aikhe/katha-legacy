@@ -47,5 +47,3 @@ export interface AuthContextType {
 // authProvider & useAuth
 
 export type AuthType = "login" | "signup";
-
-export type AuthPassFields = "password" | "confirmPassword";

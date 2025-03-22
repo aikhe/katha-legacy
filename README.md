@@ -298,15 +298,17 @@ A vault system to keep me from **completely losing my mind**. This is a simple a
 
 - TYPE STRUCTURE
 
-  - [ ] Components: 
+  ```
+  - Components: 
     - Props within as type
     - Prop type can be exported as type
-  - [ ] Hooks:
+  - Hooks:
     - React states e.g. useState within as type
     - Inline Params
-  - [ ] Reducers & providers:
+  - Reducers & providers:
     - Imported via types as interface
     - Union types as type
+  ```
 
 - MISCS
 

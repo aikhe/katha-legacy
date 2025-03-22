@@ -1,7 +1,7 @@
 import { Dispatch } from "react";
 
 import { authApi } from "@/lib/auth/api";
-import { AuthAction, AuthDispatchAction, AuthState } from "@/types/auth";
+import { AuthAction, AuthState } from "@/types/auth";
 
 export const authState: AuthState = {
   error: "",

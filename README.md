@@ -282,6 +282,7 @@ A vault system to keep me from **completely losing my mind**. This is a simple a
         - [x] Form 
         - [x] Form methods props
         - [x] Form method props type
+      - [x] maskInput
       - [ ] Proper type location
     - [ ] Fix field values resetting when getting error after submitting
     - [ ] Optimization 

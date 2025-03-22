@@ -3,10 +3,10 @@ import { maskInput } from "@/util/maskInput";
 import { AuthPassFields } from "@/types/auth";
 import { Path, PathValue, FieldValues, UseFormReturn } from "react-hook-form";
 
-interface FieldState {
+type FieldState = {
   fieldArray: string[];
   showPlainText: boolean;
-}
+};
 
 const useValidatePassword = <T extends FieldValues>(
   methods: UseFormReturn<T>,
@@ -44,7 +44,7 @@ const useValidatePassword = <T extends FieldValues>(
 
     methods.setValue(
       (field === "password" ? "password" : "confirmPassword") as Path<T>,
-      updatedArray.join(""),
+      updatedArray.join("") as PathValue<T, Path<T>>,
       {
         shouldValidate: true,
       },
@@ -84,12 +84,12 @@ export const useValidateEmail = <T extends { email: string } & FieldValues>(
 };
 
 export const useValidatePass = <T extends FieldValues>(
-  form: UseFormReturn<T>,
+  methods: UseFormReturn<T>,
 ) => {
   const [validatePassword, isValidatePassword] = useState(false);
 
   const { fieldState, handleOnInput, toggleShowPass } = useValidatePassword(
-    form,
+    methods,
     "password",
   );
 
@@ -97,9 +97,9 @@ export const useValidatePass = <T extends FieldValues>(
     handleOnInput(e);
 
     if (validatePassword) {
-      form.setValue(
+      methods.setValue(
         "confirmPassword" as Path<T>,
-        form.getValues("confirmPassword" as Path<T>),
+        methods.getValues("confirmPassword" as Path<T>),
         {
           shouldValidate: true,
         },
@@ -117,10 +117,10 @@ export const useValidatePass = <T extends FieldValues>(
 };
 
 export const useValidateConfirmPass = <T extends FieldValues>(
-  form: UseFormReturn<T>,
+  methods: UseFormReturn<T>,
 ) => {
   const { fieldState, handleOnInput, toggleShowPass } = useValidatePassword(
-    form,
+    methods,
     "confirmPassword",
   );
 

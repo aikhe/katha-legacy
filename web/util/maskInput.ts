@@ -1,31 +1,36 @@
-export const maskInput = (e: any, fieldArray: any, showPlainText?: boolean) => {
-  const numAdded = e.target.value.length - fieldArray.length;
+export const maskInput = (
+  e: React.FormEvent<HTMLInputElement>,
+  fieldArray: string[],
+  showPlainText?: boolean,
+) => {
+  const target = e.target as HTMLInputElement;
+  const numAdded = target.value.length - fieldArray.length;
   console.log("numAdded", numAdded);
 
+  const selectionStart = target.selectionStart ?? 0;
+
   if (numAdded > 0) {
-    const charsAdded = e.target.value.slice(
-      e.target.selectionStart - numAdded,
-      e.target.selectionStart,
+    const charsAdded = target.value.slice(
+      selectionStart - numAdded,
+      selectionStart,
     );
     console.log("ChardAdded", charsAdded);
 
-    console.log(
-      `${e.target.selectionStart - numAdded}, ${e.target.selectionStart}`,
-    );
+    console.log(`${selectionStart - numAdded}, ${target.selectionStart}`);
 
-    fieldArray.splice(e.target.selectionStart - numAdded, 0, ...charsAdded);
+    fieldArray.splice(selectionStart - numAdded, 0, ...charsAdded);
 
     if (!showPlainText) {
       setTimeout(() => {
-        const cursorPos = e.target.selectionStart;
+        const cursorPos = target.selectionStart;
 
-        e.target.value = "•".repeat(e.target.value.length);
+        target.value = "•".repeat(target.value.length);
 
-        e.target.setSelectionRange(cursorPos, cursorPos);
+        target.setSelectionRange(cursorPos, cursorPos);
       }, 500);
     }
   } else if (numAdded <= 0) {
-    fieldArray.splice(e.target.selectionStart, Math.abs(numAdded));
+    fieldArray.splice(selectionStart, Math.abs(numAdded));
   }
 
   console.log(fieldArray);

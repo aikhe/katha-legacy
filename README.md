@@ -120,6 +120,7 @@ A vault system to keep me from **completely losing my mind**. This is a simple a
       - Misc
         - [ ] Proper api route file/s for auth (DRY)
         - [ ] @tanstack/react-query-devtools inside QueryProvider
+        - [ ] Conver api layers to controllers?
 
     - Types
 
@@ -284,7 +285,7 @@ A vault system to keep me from **completely losing my mind**. This is a simple a
         - [x] Form method props type
       - [x] maskInput
       - [x] Proper type location
-    - [ ] Fix field values resetting when getting error after submitting
+    - [-] Fix field values resetting when getting error after submitting (again hard to solve as many other edge cases but i learn that bug testing in early stage is crucial)
     - [ ] Optimization 
     - [ ] Fix input getting masked when showing input bacause of masking delay
 

@@ -275,7 +275,7 @@ A vault system to keep me from **completely losing my mind**. This is a simple a
     - [x] Standalone component for input fields
     - [x] Better Refactor
     - [-] Input array not updating on selection paste/input (unsolvable as no pointer when selection input and so many other edge cases)
-    - [ ] Types
+    - [x] Types
       - [x] AuthFieldProps
         - [x] Form control
       - [x] UseValidateInput types
@@ -283,7 +283,7 @@ A vault system to keep me from **completely losing my mind**. This is a simple a
         - [x] Form methods props
         - [x] Form method props type
       - [x] maskInput
-      - [ ] Proper type location
+      - [x] Proper type location
     - [ ] Fix field values resetting when getting error after submitting
     - [ ] Optimization 
     - [ ] Fix input getting masked when showing input bacause of masking delay
@@ -295,6 +295,18 @@ A vault system to keep me from **completely losing my mind**. This is a simple a
     - [ ] colorscheme
   - [x] Tailwind merge (utils.ts)
   - [ ]
+
+- TYPE STRUCTURE
+
+  - [ ] Components: 
+    - Props within as type
+    - Prop type can be exported as type
+  - [ ] Hooks:
+    - React states e.g. useState within as type
+    - Inline Params
+  - [ ] Reducers & providers:
+    - Imported via types as interface
+    - Union types as type
 
 - MISCS
 

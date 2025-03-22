@@ -1,7 +1,9 @@
 import { useEffect, useState } from "react";
-import { maskInput } from "@/util/maskInput";
-import { AuthPassFields } from "@/types/auth";
 import { Path, PathValue, FieldValues, UseFormReturn } from "react-hook-form";
+
+import { maskInput } from "@/util/maskInput";
+
+import { AuthPassFields } from "@/types/auth";
 
 type FieldState = {
   fieldArray: string[];

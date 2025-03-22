@@ -2,8 +2,7 @@
   @apply w-[444px]
     rounded-none
     font-helvetica
-    border-[#E1E4EA]
-    drop-shadow-[0_1px_2px_rgba(143,143,143,0.20)];
+    border-[#E1E4EA];
 }
 
 .cardHeader {
@@ -80,9 +79,11 @@
     border
     border-[#E1E4EA]
     tracking-[2%]
-    focus-visible:ring-[#667085]
-    focus-visible:ring-1
-    focus-visible:ring-offset-[0.5px]
+    focus-visible:border-[#0C0D0E]/50
+    focus-visible:border-[1px]
+    focus-visible:ring-4
+    focus-visible:ring-[#E1E4EA]/60
+    focus-visible:ring-offset-[0px]
     placeholder:text-[#99A0AE]
     drop-shadow-[0_1px_3px_rgba(143,143,143,0.20)];
 }

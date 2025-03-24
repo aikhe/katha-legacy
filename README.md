@@ -285,7 +285,8 @@ A vault system to keep me from **completely losing my mind**. This is a simple a
         - [x] Form method props type
       - [x] maskInput
       - [x] Proper type location
-    - [-] Fix field values resetting when getting error after submitting (again hard to solve as many other edge cases but i learn that bug testing in rarly stage is crucial, holy shit it turns out that the bug still persist way wayyy back so its really just a matter of bug testing at the very early stage of development)
+    - [x] Fix field values resetting when getting error after submitting (again hard to solve as many other edge cases but i learn that bug testing in rarly stage is crucial, holy shit it turns out that the bug still persist way wayyy back so its really just a matter of bug testing at the very early stage of development)
+      - [x] So it turns out that I there is already a success state when using the auth api so I just have to pass that to the authform via useActionState and authProvider (Solved this in my OJT time from st clare)
     - [ ] Optimization 
     - [ ] Fix input getting masked when showing input bacause of masking delay
     - [ ] Icons from lucide react

@@ -46,8 +46,6 @@ const FormSchema = z
 type AuthFormProp = { authType: AuthType };
 
 const AuthForm: FC<AuthFormProp> = ({ authType }) => {
-  const [isVerifying, setIsVerifying] = useState(false);
-
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
     defaultValues: {
@@ -79,15 +77,7 @@ const AuthForm: FC<AuthFormProp> = ({ authType }) => {
     handleAuth(data.email, form.getValues("password"));
   };
 
-  useEffect(() => {
-    if (authType === "signup" && success && !isPending && !error)  {
-      setIsVerifying(!isVerifying);
-    }
-
-    console.log("on authform:", success)
-  }, [success])
-
-  if (isVerifying) {
+  if (success) {
     return <OtpForm />;
   }
 

@@ -1,3 +1,13 @@
+# CHECKPOINT
+
+- [x] Relearn how the routing and auth flows (atleast)
+  - focus on the big picture and go to details once a problem occured
+  - So far I already grasp how to full routing works and discover a new flaw once the db is implemented
+  - Now, siguro I'll go and figure out the auth?? but I think I have a pretty good foundation for this since I fucking suffer building that absolute nonsense, I get the flow and how the file structre works together
+- [ ] Will make the idea better since its completely obselete now
+- [ ] Make huge changes to the ui and ux 
+- [ ] Implement OAuth (Google && Github)
+
 # **Katha**
 
 A vault system to keep me from **completely losing my mind**. This is a simple and neat inventory management system where I can store everything that matters, *so I can stay present and not spiral into insanity*. "Katha" means **"created by the mind"**, which means it's up to me to turn thoughts into reality… or at least attempt to.

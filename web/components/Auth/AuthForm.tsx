@@ -77,7 +77,7 @@ const AuthForm: FC<AuthFormProp> = ({ authType }) => {
     handleAuth(data.email, form.getValues("password"));
   };
 
-  if (success) {
+  if (success && authType === "signup") {
     return <OtpForm />;
   }
 

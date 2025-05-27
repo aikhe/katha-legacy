@@ -152,6 +152,7 @@ A vault system to keep me from **completely losing my mind**. This is a simple a
     - [ ] Error page (error.tsx)
     - [ ] Refine middleware logic
     - [ ] Metadata for each pages (MatterProvider)
+    - [ ] Worried about the routing for each generated katha by each user since the dashboard routing is very limited to _pages folder
 
   - Misc
     - [x] Make use of useReducer

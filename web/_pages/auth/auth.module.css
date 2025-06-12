@@ -1,7 +1,0 @@
-.authPage {
-  @apply flex 
-    flex-col
-    justify-center
-    items-center
-    mt-[1.875rem];
-}

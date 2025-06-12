@@ -12,7 +12,7 @@ A vault system to keep me from **completely losing my mind**. This is a simple a
 6. Talk to Kath AI "kAIa" to unlock you sixth sense
 	- Generate linked or connected ideas base on user prompt
 	- Talk the happenings and feel better
-	- idk what else (I'll make sure to make kAIa only talk inside katha)
+	- (I'll make sure to make kAIa only talk inside katha)
 7. Generate blogs base on your entries with kAIa help
 8. Keep track of your progress via graphs and kAIa
 9. Daily check in and keep the streak going 
@@ -45,7 +45,7 @@ A vault system to keep me from **completely losing my mind**. This is a simple a
 - Mailjet
 
 
-#### To-:
+#### To-Do:
 
 - NEXTJS
 

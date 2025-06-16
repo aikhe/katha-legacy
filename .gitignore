@@ -1,0 +1,37 @@
+# Commonly ignored Node.js files
+node_modules
+.env.*
+
+# Next.js Build Output
+apps/site/.next
+apps/site/out
+apps/site/build
+
+# dependencies
+.pnp
+.pnp.*
+.yarn/*
+!.yarn/patches
+!.yarn/plugins
+!.yarn/releases
+!.yarn/versions
+
+# testing
+coverage
+
+# misc
+.DS_Store
+*.pem
+
+# debug
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.pnpm-debug.log*
+
+# vercel
+.vercel
+
+# typescript
+*.tsbuildinfo
+next-env.d.ts

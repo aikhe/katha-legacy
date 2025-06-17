@@ -49,8 +49,8 @@ A vault system to keep me from **completely losing my mind**. This is a simple a
   
   - [x] Nextjs installation
   - [x] Bun for everthing
-  - [ ] App/project structure (app router)
-  - [ ] Remove unecessary/unused components/styling
+  - [x] App/project structure (app router)
+  - [x] Remove unecessary/unused components/styling
   - [ ] Dependencies
     - [ ] @supabase/supabase-js @supabase/ssr
     - [ ] node-mailjet

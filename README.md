@@ -48,8 +48,9 @@ A vault system to keep me from **completely losing my mind**. This is a simple a
 - BUILD
   
   - [x] Nextjs installation
-  - [ ] Clean junks
-  - [ ] Project structure
+  - [x] Bun for everthing
+  - [ ] App/project structure (app router)
+  - [ ] Remove unecessary/unused components/styling
   - [ ] Dependencies
     - [ ] 
   - [ ] 

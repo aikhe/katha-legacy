@@ -52,5 +52,12 @@ A vault system to keep me from **completely losing my mind**. This is a simple a
   - [ ] App/project structure (app router)
   - [ ] Remove unecessary/unused components/styling
   - [ ] Dependencies
-    - [ ] 
+    - [ ] @supabase/supabase-js @supabase/ssr
+    - [ ] node-mailjet
+    - [ ] zod
+    - [ ] react-hook-form
+    - [ ] @hookform/resolvers
+    - [ ] @tanstack/react-query
+    - [ ] @tanstack/react-query-devtools
+    - [ ] Shadcn
   - [ ] 

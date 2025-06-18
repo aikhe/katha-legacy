@@ -61,3 +61,13 @@ A vault system to keep me from **completely losing my mind**. This is a simple a
     - [ ] @tanstack/react-query-devtools
     - [ ] Shadcn
   - [ ] 
+
+- SUPABASE
+
+  - [x] Use case for supabase clients:
+      ```
+      - Client component client: displaying updates e.g User Info (frontend side, faster, optimistic UI updates, relies heavily on RLS for security)
+      - Server component client: manipulating data & auth (used via server actions & route handlers, complex backend logic, security)
+      - NOTE: server actions are mostly prefered for most use case especially data mutations (create, update, delete) for more secure and efficient way to perform server-side logic from client-side interactions, often resulting in a better developer experience and potentially better performance due to automatic revalidation.
+
+      ```

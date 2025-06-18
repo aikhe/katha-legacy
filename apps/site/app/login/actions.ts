@@ -4,6 +4,8 @@ import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 
 import { createServer } from "@/lib/supabase/server";
+import supabaseAdmin from "@/lib/supabase/admin";
+import { GenerateLinkParams } from "@supabase/supabase-js";
 
 export async function login(formData: FormData) {
   const supabase = await createServer();
@@ -28,21 +30,20 @@ export async function login(formData: FormData) {
 }
 
 export async function signup(formData: FormData) {
-  const supabase = await createServer();
+  const supabase = supabaseAdmin();
 
-  // type-casting here for convenience
-  // in practice, you should validate your inputs
-  const userData = {
+  const userData: GenerateLinkParams = {
+    type: "signup",
     email: formData.get("email") as string,
     password: formData.get("password") as string,
   };
 
-  const { data, error } = await supabase.auth.signInWithOtp(userData);
+  const { data, error } = await supabase.auth.admin.generateLink(userData);
 
   console.log(data);
-  console.log(error);
 
   if (error) {
+    console.log(error);
     redirect("/error");
   }
 }
@@ -72,4 +73,5 @@ export async function signOut() {
   const { error } = await supabase.auth.signOut();
 
   revalidatePath("/", "layout");
+  redirect("/login");
 }

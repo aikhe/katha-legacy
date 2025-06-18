@@ -1,5 +1,6 @@
-# Commonly ignored Node.js files
+# Commonly ignored files
 node_modules
+.env
 .env.*
 
 # Next.js Build Output

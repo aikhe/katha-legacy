@@ -2,6 +2,19 @@
 
 A vault system to keep me from **completely losing my mind**. This is a simple and neat inventory management system where I can store everything that matters, *so I can stay present and not spiral into insanity*. "Katha" means **"created by the mind"**, which means it's up to me to turn thoughts into reality… or at least attempt to.
 
+### Tech Stack:
+
+- Next.js
+- Supabase
+- Drizzle
+- Postgres
+- React
+- Typescript
+- Tailwind & Sass
+- Motion & Lenis scroll & React three fiber
+- Shadcn
+- Mailjet
+
 ## Flow
 
 1. Remember that this thing exist
@@ -22,26 +35,19 @@ A vault system to keep me from **completely losing my mind**. This is a simple a
 
 - [x] Relearn how the routing and auth flows (atleast)
   - focus on the big picture and go to details once a problem occured
-  - So far I already grasp how to full routing works and discover a new flaw once the db is implemented
+  - So far I already grasp how the full routing works and discover a new flaw once the db is implemented
   - Now, siguro I'll go and figure out the auth?? but I think I have a pretty good foundation for this since I fucking suffer building that absolute nonsense, I get the flow and how the file structre works together
 - [x] Will make the idea better since its completely obselete now
   - Reiterate and improve
+- [x] Dockering
+- [x] Cursor fix
+- [x] Bun era
+- [ ] Recall some features and react hooks
 - [ ] Make huge changes to the ui and ux 
+- [ ] 
+- [ ] 
 
 --- 
-
-### Tech Stack:
-
-- Next.js
-- Supabase
-- Drizzle
-- Postgres
-- React
-- Typescript
-- Tailwind & Sass
-- Motion & Lenis scroll & React three fiber
-- Shadcn
-- Mailjet
 
 #### To-Do
 
@@ -52,7 +58,7 @@ A vault system to keep me from **completely losing my mind**. This is a simple a
   - [x] App/project structure (app router)
   - [x] Remove unecessary/unused components/styling
   - [ ] Dependencies
-    - [ ] @supabase/supabase-js @supabase/ssr
+    - [x] @supabase/supabase-js @supabase/ssr
     - [ ] node-mailjet
     - [ ] zod
     - [ ] react-hook-form
@@ -62,7 +68,29 @@ A vault system to keep me from **completely losing my mind**. This is a simple a
     - [ ] Shadcn
   - [ ] 
 
-- SUPABASE
+- AUTH (Supabase)
+  
+  - [x] Packages @supabase/supabase-js @supabase/ssr
+  - [ ] Env. vars
+  - [ ] Supabase clients
+    - [ ] Client component client
+    - [ ] Server component client
+
+- ROUTING (nextjs app router)
+
+  - [ ] Dynamic routing
+  - [ ] Default route as home + middleware checks
+  - [ ] notFound() page handler (not-found.tsx)
+  - [ ] Route config
+  - [ ] Auth route/layout pages (login & signup)
+  - [ ] Page parsing
+  - [ ] Protected routes (dashboard)
+  - [ ] Error page (error.tsx)
+  - [ ] Refine middleware logic
+  - [ ] Metadata for each pages (MatterProvider)
+  - [ ] Worried about the routing for each generated katha by each user since the dashboard routing is very limited to _pages folder
+
+- ERUDITON
 
   - [x] Use case for supabase clients:
       ```
@@ -71,3 +99,8 @@ A vault system to keep me from **completely losing my mind**. This is a simple a
       - NOTE: server actions are mostly prefered for most use case especially data mutations (create, update, delete) for more secure and efficient way to perform server-side logic from client-side interactions, often resulting in a better developer experience and potentially better performance due to automatic revalidation.
 
       ```
+
+- NOTE
+
+  - Builds and dev check to avoid issues on deployment
+  - React scan (forgot about the auth component)

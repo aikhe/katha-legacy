@@ -17,6 +17,8 @@ export async function login(formData: FormData) {
 
   const { error } = await supabase.auth.signInWithPassword(data);
 
+  console.log(error);
+
   if (error) {
     redirect("/error");
   }
@@ -38,6 +40,7 @@ export async function signup(formData: FormData) {
   const { data, error } = await supabase.auth.signInWithOtp(userData);
 
   console.log(data);
+  console.log(error);
 
   if (error) {
     redirect("/error");
@@ -61,4 +64,12 @@ export async function verifyOtp(formData: FormData) {
 
   revalidatePath("/", "layout");
   redirect("/");
+}
+
+export async function signOut() {
+  const supabase = await createServer();
+
+  const { error } = await supabase.auth.signOut();
+
+  revalidatePath("/", "layout");
 }

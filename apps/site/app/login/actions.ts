@@ -30,12 +30,30 @@ export async function signup(formData: FormData) {
 
   // type-casting here for convenience
   // in practice, you should validate your inputs
-  const data = {
+  const userData = {
     email: formData.get("email") as string,
     password: formData.get("password") as string,
   };
 
-  const { error } = await supabase.auth.signUp(data);
+  const { data, error } = await supabase.auth.signInWithOtp(userData);
+
+  console.log(data);
+
+  if (error) {
+    redirect("/error");
+  }
+}
+
+export async function verifyOtp(formData: FormData) {
+  const supabase = await createServer();
+
+  const { data, error } = await supabase.auth.verifyOtp({
+    email: formData.get("email") as string,
+    token: formData.get("otp") as string,
+    type: "email",
+  });
+
+  console.log(data);
 
   if (error) {
     redirect("/error");

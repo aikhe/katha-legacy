@@ -1,9 +1,9 @@
 export default function Home() {
   return (
-    <>
-      <main>
+    <main>
+      <section>
         <p>lulumi</p>
-      </main>
-    </>
+      </section>
+    </main>
   );
 }

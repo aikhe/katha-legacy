@@ -61,6 +61,7 @@ A vault system to keep me from **completely losing my mind**. This is a simple a
   - [x] Remove unecessary/unused components/styling
   - [ ] Dependencies
     - [x] @supabase/supabase-js @supabase/ssr
+    - [x] react-scan
     - [ ] node-mailjet
     - [ ] zod
     - [ ] react-hook-form

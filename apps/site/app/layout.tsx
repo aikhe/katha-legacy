@@ -1,5 +1,8 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+
+import { Geist, Geist_Mono, Racing_Sans_One } from "next/font/google";
+import { ReactScan } from "@/components/ReactScan";
+
 import "@/styles/globals.css";
 
 const geistSans = Geist({
@@ -24,6 +27,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
+      <ReactScan />
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >

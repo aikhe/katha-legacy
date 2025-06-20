@@ -10,8 +10,6 @@ import { GenerateLinkParams } from "@supabase/supabase-js";
 export async function login(formData: FormData) {
   const supabase = await createServer();
 
-  // type-casting here for convenience
-  // in practice, you should validate your inputs
   const data = {
     email: formData.get("email") as string,
     password: formData.get("password") as string,
@@ -19,9 +17,8 @@ export async function login(formData: FormData) {
 
   const { error } = await supabase.auth.signInWithPassword(data);
 
-  console.log(error);
-
   if (error) {
+    console.log(error);
     redirect("/error");
   }
 
@@ -72,6 +69,10 @@ export async function signOut() {
 
   const { error } = await supabase.auth.signOut();
 
+  if (error) {
+    console.log(error);
+    redirect("/error");
+  }
+
   revalidatePath("/", "layout");
-  redirect("/login");
 }

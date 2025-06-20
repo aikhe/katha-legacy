@@ -43,6 +43,8 @@ A vault system to keep me from **completely losing my mind**. This is a simple a
 - [x] Cursor fix
 - [x] Bun era
 - [ ] Recall some features and react hooks
+    [ ] 
+    [ ] 
 - [ ] Make huge changes to the ui and ux 
 - [ ] 
 - [ ] 
@@ -71,10 +73,10 @@ A vault system to keep me from **completely losing my mind**. This is a simple a
 - AUTH (Supabase)
   
   - [x] Packages @supabase/supabase-js @supabase/ssr
-  - [ ] Env. vars
-  - [ ] Supabase clients
-    - [ ] Client component client
-    - [ ] Server component client
+  - [x] Env. vars
+  - [x] Supabase clients
+    - [x] Client component client
+    - [x] Server component client
 
 - ROUTING (nextjs app router)
 

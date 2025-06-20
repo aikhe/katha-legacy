@@ -93,6 +93,16 @@ A vault system to keep me from **completely losing my mind**. This is a simple a
   - [ ] Metadata for each pages (MatterProvider)
   - [ ] Worried about the routing for each generated katha by each user since the dashboard routing is very limited to _pages folder
 
+- MISC
+
+  - [x] Setup react scan
+
+- FRONTEND UI/UX
+
+  - [ ] Tailwind variables
+    - [ ] Fonts
+    - [ ] Colorscheme
+
 - ERUDITON
 
   - [x] Use case for supabase clients:
